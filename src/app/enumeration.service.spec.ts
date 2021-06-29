@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EnumerationServiceService } from './enumeration-service.service';
+import { EnumerationService } from './enumeration.service';
 
 describe('EnumerationServiceService', () => {
-  let service: EnumerationServiceService;
+  let service: EnumerationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EnumerationServiceService);
+    service = TestBed.inject(EnumerationService);
   });
 
   it('should be created', () => {

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EthProviderServiceService } from './eth-provider-service.service';
+import { EthProviderService } from './eth-provider.service';
 
 describe('EthProviderServiceService', () => {
-  let service: EthProviderServiceService;
+  let service: EthProviderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EthProviderServiceService);
+    service = TestBed.inject(EthProviderService);
   });
 
   it('should be created', () => {
