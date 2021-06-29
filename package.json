@@ -6,18 +6,26 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prettify": "prettier --write src/app src/*.ts src/*.css src/*.html"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.4",
+    "@angular/cdk": "^12.1.0",
     "@angular/common": "~12.0.4",
     "@angular/compiler": "~12.0.4",
     "@angular/core": "~12.0.4",
     "@angular/forms": "~12.0.4",
+    "@angular/material": "^12.1.0",
     "@angular/platform-browser": "~12.0.4",
     "@angular/platform-browser-dynamic": "~12.0.4",
     "@angular/router": "~12.0.4",
+    "@metamask/detect-provider": "^1.2.0",
+    "@ngrx/effects": "^12.1.0",
+    "@ngrx/store": "^12.1.0",
+    "erc721nftlab": "^1.0.0",
+    "prettier": "^2.3.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"

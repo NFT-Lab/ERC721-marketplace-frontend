@@ -1,0 +1,9 @@
+<div *ngIf="accountsAvailable(); then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <a href="forge"><div class="card card-mini"><mat-icon>forge</mat-icon></div></a>
+  <div class="card card-mini" (click)="onPush()"><mat-icon>account_balance_wallet</mat-icon></div>
+</ng-template>
+<ng-template #elseBlock>
+  <div class="card card-small" (click)="onPush()">{{message}}</div>
+</ng-template>
+
