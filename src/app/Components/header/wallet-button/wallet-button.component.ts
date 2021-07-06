@@ -32,8 +32,8 @@ export class WalletButtonComponent implements OnInit {
   }
 
   requestAccounts() {
-    this.walletService.requestAccounts()?.then((accounts: string[]) => {
-      this.account = accounts[0];
+    this.walletService.requestAccounts().then((accounts: string[] | null) => {
+      this.account = accounts ? accounts[0] : null;
     });
   }
 

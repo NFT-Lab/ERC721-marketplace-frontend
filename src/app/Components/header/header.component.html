@@ -1,15 +1,13 @@
 <header class="toolbar" role="banner">
-  <div routerLink="art" [ngClass]="isActive('/art') + ' header-link'">
-    <mat-icon> photo_album </mat-icon>
-  </div>
+  <div routerLink="art" [ngClass]="isActive('/art') + ' header-link'">Art</div>
   <div
     routerLink="categories"
     [ngClass]="isActive('/categories') + ' header-link'"
   >
-    <mat-icon> list </mat-icon>
+    Categories
   </div>
   <div routerLink="forge" [ngClass]="isActive('/forge') + ' header-link'">
-    <mat-icon> edit </mat-icon>
+    Forge
   </div>
   <div class="spacer"></div>
   <app-wallet-button></app-wallet-button>

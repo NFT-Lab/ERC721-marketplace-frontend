@@ -5,7 +5,7 @@
   >
     <div *ngIf="accountsAvailable(); then walleticon; else connectblock"></div>
     <ng-template #walleticon>
-      <mat-icon>account_balance_wallet</mat-icon>
+      <i class="light-icon-wallet"></i>
     </ng-template>
     <ng-template #connectblock>
       {{ message }}

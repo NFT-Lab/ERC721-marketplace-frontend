@@ -26,6 +26,7 @@
     "@ngrx/store": "^12.1.0",
     "erc721nftlab": "^1.1.0",
     "ethers": "^5.4.0",
+    "light-icons": "^1.0.8",
     "prettier": "^2.3.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
