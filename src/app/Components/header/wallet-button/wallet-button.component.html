@@ -1,0 +1,14 @@
+<div class="card-container">
+  <div
+    [ngClass]="'card ' + (accountsAvailable() ? 'card-mini' : 'card-small')"
+    (click)="accountsAvailable() ? openAccountsModal() : requestAccounts()"
+  >
+    <div *ngIf="accountsAvailable(); then walleticon; else connectblock"></div>
+    <ng-template #walleticon>
+      <mat-icon>account_balance_wallet</mat-icon>
+    </ng-template>
+    <ng-template #connectblock>
+      {{ message }}
+    </ng-template>
+  </div>
+</div>

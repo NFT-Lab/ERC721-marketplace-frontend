@@ -24,7 +24,7 @@
     "@metamask/detect-provider": "^1.2.0",
     "@ngrx/effects": "^12.1.0",
     "@ngrx/store": "^12.1.0",
-    "erc721nftlab": "^1.0.0",
+    "erc721nftlab": "^1.1.0",
     "ethers": "^5.4.0",
     "prettier": "^2.3.2",
     "rxjs": "~6.6.0",

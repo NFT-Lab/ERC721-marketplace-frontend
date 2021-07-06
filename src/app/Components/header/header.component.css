@@ -1,0 +1,39 @@
+@keyframes activate {
+  from {
+    color: currentColor;
+  }
+  to {
+    color: darkviolet;
+  }
+}
+
+@keyframes deactivate {
+  from {
+    color: currentColor;
+  }
+  to {
+    color: lightgrey;
+  }
+}
+
+.header-link {
+  margin-right: 30px;
+  margin-left: 30px;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+  animation-name: deactivate;
+  color: lightgrey;
+}
+
+.page-selector {
+  width: 15px;
+  height: 5px;
+  position: absolute;
+}
+
+.active {
+  transform: translateY(-5px);
+  transition: 0.1s ease-in;
+  animation-name: activate;
+  color: darkviolet;
+}

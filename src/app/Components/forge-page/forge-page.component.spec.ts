@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArtPageComponent } from './art-page.component';
+import { ForgePageComponent } from './forge-page.component';
 
-describe('ArtPageComponent', () => {
-  let component: ArtPageComponent;
-  let fixture: ComponentFixture<ArtPageComponent>;
+describe('ForgePageComponent', () => {
+  let component: ForgePageComponent;
+  let fixture: ComponentFixture<ForgePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArtPageComponent ]
-    })
-    .compileComponents();
+      declarations: [ForgePageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArtPageComponent);
+    fixture = TestBed.createComponent(ForgePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
