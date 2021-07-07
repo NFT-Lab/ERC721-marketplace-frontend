@@ -9,12 +9,17 @@ export class WalletService {
   private accounts: string[] | null = null;
   constructor(private walletProvider: WalletProviderService) {}
 
-  public isConnected() {
-    return !!this.walletProvider.wallet;
+  public async isConnected() {
+    try {
+      const wallet = await this.walletProvider.wallet;
+      return !!wallet;
+    } catch (e) {
+      return false;
+    }
   }
 
   public async requestAccounts(): Promise<string[] | null> {
-    if (this.walletProvider.wallet) {
+    if (await this.isConnected()) {
       this.accounts = await this.walletProvider.wallet.request(
         methods['requestAccounts']
       );

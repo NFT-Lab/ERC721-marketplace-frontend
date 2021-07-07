@@ -5,18 +5,23 @@ import { ethers } from 'ethers';
   providedIn: 'root',
 })
 export class WalletProviderService {
-  private readonly _wallet: any | undefined;
+  private _wallet: any | undefined;
   private _signer: ethers.Signer | undefined;
   private _provider: ethers.providers.Web3Provider | undefined;
 
   constructor() {
-    this._wallet = (window as any).ethereum ?? null;
+    this._wallet = (window as any).ethereum;
   }
 
   get wallet() {
-    if (this._wallet) {
-      return this._wallet;
-    } else throw new Error('Provider not available because of no signers');
+    if (!this._wallet) {
+      if((window as any).ethereum != undefined) {
+        this._wallet = (window as any).ethereum;
+      } else {
+        throw new Error('Provider not available because of no signers');
+      }
+    }
+    return this._wallet;
   }
 
   get signer() {
