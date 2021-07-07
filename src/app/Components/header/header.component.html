@@ -1,10 +1,5 @@
 <header class="toolbar" role="banner">
-  <div
-    routerLink=""
-    [ngClass]="!isActive('/{art | categories | forge}') + ' header-link'"
-  >
-    Home
-  </div>
+  <div routerLink="" [ngClass]="isActive('/home') + ' header-link'">Home</div>
   <div routerLink="art" [ngClass]="isActive('/art') + ' header-link'">Art</div>
   <div
     routerLink="categories"

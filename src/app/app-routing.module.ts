@@ -8,8 +8,9 @@ import { ForgePageComponent } from './Components/forge-page/forge-page.component
 const routes: Routes = [
   { path: 'art', component: ArtPageComponent },
   { path: 'categories', component: CategoriesPageComponent },
-  { path: '', component: LandingPageComponent },
+  { path: 'home', component: LandingPageComponent },
   { path: 'forge', component: ForgePageComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({
