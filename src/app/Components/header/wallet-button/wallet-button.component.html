@@ -1,6 +1,8 @@
 <div class="card-container">
   <div
-    [ngClass]="'card ' + (accountsAvailable() ? 'card-mini' : 'card-small')"
+    [ngClass]="
+      'card ' + (accountsAvailable() ? 'card-mini active' : 'card-small')
+    "
     (click)="accountsAvailable() ? openAccountsModal() : requestAccounts()"
   >
     <div *ngIf="accountsAvailable(); then walleticon; else connectblock"></div>

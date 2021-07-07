@@ -27,4 +27,8 @@ export class WalletService {
     if (this.accounts) return this.accounts;
     else return await this.requestAccounts();
   }
+
+  public hasAccounts() {
+    return this.accounts != null;
+  }
 }

@@ -1,4 +1,10 @@
 <header class="toolbar" role="banner">
+  <div
+    routerLink=""
+    [ngClass]="!isActive('/{art | categories | forge}') + ' header-link'"
+  >
+    Home
+  </div>
   <div routerLink="art" [ngClass]="isActive('/art') + ' header-link'">Art</div>
   <div
     routerLink="categories"
@@ -6,7 +12,11 @@
   >
     Categories
   </div>
-  <div routerLink="forge" [ngClass]="isActive('/forge') + ' header-link'">
+  <div
+    *ngIf="canForge()"
+    routerLink="forge"
+    [ngClass]="isActive('/forge') + ' header-link'"
+  >
     Forge
   </div>
   <div class="spacer"></div>

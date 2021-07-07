@@ -1,27 +1,36 @@
-# MetamaskdApp
+# ERC721 Marketplace frontend
+Frontend for the [ERC721 marketplace](https://github.com/Nft-Lab/ERC721-marketplace) ethereum contracts. Exposes a webapp that lets everyone interact with a ERC721 marketplace deployed on the ethereum network. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
+## Usage
+first of all
+```shell
+npm i
+```
+installs all the dependencies
+### Development server
+```shell
+npm start
+```
+will start a development server trough [angular cli](https://angular.io/cli), the applicatoin will be loaded and will be available at [localhost:4200](http://localhost:4200); live reloading will be active.
 
-## Development server
+### Code scaffolding
+Components are in the `src/app/components` folder, they are directly there if more than one page loads them (for example the header is loaded everywhere) or are inside the folder of the component that renders them. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Build
+```shell
+npm run build
+```
+builds the bundle application on dist/app, this folder can be served with any http server such as [nginx](https://nginx.org/en/) or [apache2 web server](https://httpd.apache.org/)
 
-## Code scaffolding
+## Contributing
+For every feature request submit a pull request and if useful and meaningful wil certainly be approved by someone.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Standards
+all the code to be integrated has to be formatted with [prettier](prettier.io). Fortunately we provide an easy way to do so, just run
+```bash
+npm run prettify
+```
+and your code will automatically be formatted, so that everything is uniform. After that commit and make your pull request
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Documentation
+Documentation for architectural and implementation decisions can be found on the [wiki](/wiki) page

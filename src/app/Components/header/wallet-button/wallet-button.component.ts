@@ -8,7 +8,7 @@ import { WalletService } from '../../../Services/WalletService/wallet.service';
 })
 export class WalletButtonComponent implements OnInit {
   public message: string = '';
-  private account: String | null;
+  account: String | null;
 
   constructor(private walletService: WalletService) {
     this.account = null;

@@ -11,6 +11,7 @@ import { CategoriesPageComponent } from './Components/categories-page/categories
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ForgePageComponent } from './Components/forge-page/forge-page.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ForgePageComponent } from './Components/forge-page/forge-page.component
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

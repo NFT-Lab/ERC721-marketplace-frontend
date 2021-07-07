@@ -1,6 +1,33 @@
 @import "~light-icons/dist/light-icon.css";
 
+@keyframes activate {
+  from {
+    color: currentColor;
+  }
+  to {
+    color: darkviolet;
+  }
+}
+
 .card-mini {
   font-size: 30px;
   font-weight: 30;
+}
+
+.card-mini.active {
+  border: white;
+  background-color: white;
+}
+
+.card-mini.active:hover {
+  transform: translateY(-5px);
+  transition: 0.1s ease-in;
+  animation-name: activate;
+  box-shadow: 0 0 0 0;
+  color: darkviolet;
+}
+
+mat-expansion-panel-header {
+  width: 50px;
+  height: 12px;
 }
