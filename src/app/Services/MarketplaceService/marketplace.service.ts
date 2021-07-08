@@ -21,7 +21,7 @@ export class MarketplaceService {
       this._ETHMarketplace = new ethers.Contract(
         environment.contractAddress,
         ETHM_INTERFACE['abi'],
-        this.walletProvider.signer
+        this.walletProvider.provider
       ) as ETHMarketplace;
     }
     return this._ETHMarketplace;
@@ -33,7 +33,7 @@ export class MarketplaceService {
       this._marketplaceStore = new ethers.Contract(
         addr,
         NFTLS_INTERFACE['abi'],
-        this.walletProvider.signer
+        this.walletProvider.provider
       ) as NFTLabStoreMarketplaceVariant;
     }
     return this._marketplaceStore;

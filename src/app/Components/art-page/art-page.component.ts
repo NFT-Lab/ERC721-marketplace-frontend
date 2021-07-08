@@ -11,9 +11,9 @@ export class ArtPageComponent implements OnInit {
   constructor(private market: MarketplaceService) {}
 
   async ngOnInit(): Promise<void> {
-    const marketStore = await this.market.getEthMarketplace();
+    const marketStore = await this.market.getMarketplaceStore();
     if (marketStore) {
-      console.log(await marketStore.deployed());
+      this.total = (await marketStore.totalSupply()).toNumber()
     }
   }
 }
