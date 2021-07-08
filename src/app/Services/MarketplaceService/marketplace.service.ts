@@ -3,8 +3,8 @@ import { WalletProviderService } from '../WalletProviderService/wallet-provider.
 import ETHM_INTERFACE from 'erc721nftlab/artifacts/contracts/ETHMarketplace.sol/ETHMarketplace.json';
 import NFTLS_INTERFACE from 'erc721nftlab/artifacts/contracts/NFTLabStoreMarketplaceVariant.sol/NFTLabStoreMarketplaceVariant.json';
 import { environment } from '../../../environments/environment';
-import {ETHMarketplace} from "erc721nftlab/typechain/ETHMarketplace";
-import {NFTLabStoreMarketplaceVariant} from "erc721nftlab/typechain/NFTLabStoreMarketplaceVariant";
+import { ETHMarketplace } from 'erc721nftlab/typechain/ETHMarketplace';
+import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
 
 @Injectable({
   providedIn: 'root',
