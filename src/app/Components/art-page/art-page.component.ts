@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
+import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
 
 @Component({
   selector: 'app-art-page',
@@ -8,12 +9,14 @@ import { MarketplaceService } from '../../Services/MarketplaceService/marketplac
 })
 export class ArtPageComponent implements OnInit {
   total: number = 0;
+  art: string[] = [];
+  private marketStore: NFTLabStoreMarketplaceVariant | undefined;
   constructor(private market: MarketplaceService) {}
 
   async ngOnInit(): Promise<void> {
-    const marketStore = await this.market.getMarketplaceStore();
-    if (marketStore) {
-      this.total = (await marketStore.totalSupply()).toNumber()
-    }
+    this.marketStore = await this.market.getMarketplaceStore();
+    setInterval(async () => {
+      this.total = (await this.marketStore?.totalSupply())?.toNumber() ?? 0;
+    }, 1000);
   }
 }

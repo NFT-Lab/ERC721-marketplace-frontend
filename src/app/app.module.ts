@@ -12,6 +12,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ForgePageComponent } from './Components/forge-page/forge-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NFTPreviewComponent } from './Components/art-page/NFT-Preview/nft-preview/nft-preview.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ArtDetailPageComponent } from './Components/art-page/art-detail-page/art-detail-page.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +27,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ArtPageComponent,
     CategoriesPageComponent,
     ForgePageComponent,
+    NFTPreviewComponent,
+    ArtDetailPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +36,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     BrowserAnimationsModule,
     MatIconModule,
     MatExpansionModule,
+    ScrollingModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

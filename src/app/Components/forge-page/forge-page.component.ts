@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-forge-page',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./forge-page.component.css'],
 })
 export class ForgePageComponent implements OnInit {
+  titleControl = new FormControl('auto');
   constructor() {}
 
   ngOnInit(): void {}

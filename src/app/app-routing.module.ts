@@ -4,6 +4,7 @@ import { ArtPageComponent } from './Components/art-page/art-page.component';
 import { CategoriesPageComponent } from './Components/categories-page/categories-page.component';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { ForgePageComponent } from './Components/forge-page/forge-page.component';
+import { ArtDetailPageComponent } from './Components/art-page/art-detail-page/art-detail-page.component';
 
 const routes: Routes = [
   { path: 'art', component: ArtPageComponent },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'home', component: LandingPageComponent },
   { path: 'forge', component: ForgePageComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'art/:cid', component: ArtDetailPageComponent },
 ];
 
 @NgModule({

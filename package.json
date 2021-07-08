@@ -43,6 +43,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "mocha": "^7.2.0",
+    "node-vibrant": "^3.2.1-alpha.1",
     "typescript": "~4.2.3"
   }
 }
