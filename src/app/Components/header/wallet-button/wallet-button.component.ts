@@ -13,11 +13,11 @@ export class WalletButtonComponent implements OnInit {
   constructor(private walletService: WalletService) {}
 
   async ngOnInit(): Promise<void> {
-      if(await this.walletService.isConnected()) {
-        this.message = 'Connect wallet';
-      } else {
-        this.message = 'Install metamask';
-      }
+    if (await this.walletService.isConnected()) {
+      this.message = 'Connect wallet';
+    } else {
+      this.message = 'Install metamask';
+    }
   }
 
   accountsAvailable(): boolean {
@@ -26,11 +26,13 @@ export class WalletButtonComponent implements OnInit {
 
   async requestAccounts() {
     if (!(await this.walletService.isConnected()))
-      window.open("https://metamask.io/download.html", "_blank")
+      window.open('https://metamask.io/download.html', '_blank');
     else
-      this.walletService.requestAccounts().then((accounts: string[] | null) => {
-        this.account = accounts ? accounts[0] : undefined;
-      })
+      this.walletService
+        .requestAccounts()
+        .then((accounts: string[] | undefined) => {
+          this.account = accounts ? accounts[0] : undefined;
+        });
   }
 
   openAccountsModal() {}

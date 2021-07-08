@@ -6,7 +6,7 @@ import methods from './wallet.methods.map';
   providedIn: 'root',
 })
 export class WalletService {
-  private accounts: string[] | null = null;
+  private accounts: string[] | undefined;
   constructor(private walletProvider: WalletProviderService) {}
 
   public async isConnected() {
@@ -18,14 +18,14 @@ export class WalletService {
     }
   }
 
-  public async requestAccounts(): Promise<string[] | null> {
+  public async requestAccounts(): Promise<string[] | undefined> {
     if (await this.isConnected()) {
       this.accounts = await this.walletProvider.wallet.request(
         methods['requestAccounts']
       );
       return this.accounts;
     }
-    return null;
+    return undefined;
   }
 
   public async getAccounts() {

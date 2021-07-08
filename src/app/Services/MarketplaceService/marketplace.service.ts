@@ -1,38 +1,40 @@
 import { Injectable } from '@angular/core';
 import { WalletProviderService } from '../WalletProviderService/wallet-provider.service';
-import { ETHMarketplace } from 'erc721nftlab/typechain/ETHMarketplace';
-import '@nomiclabs/hardhat-ethers';
+import ETHM_INTERFACE from 'erc721nftlab/artifacts/contracts/ETHMarketplace.sol/ETHMarketplace.json';
+import NFTLS_INTERFACE from 'erc721nftlab/artifacts/contracts/NFTLabStoreMarketplaceVariant.sol/NFTLabStoreMarketplaceVariant.json';
 import { environment } from '../../../environments/environment';
-import { getContractFactory } from '@nomiclabs/hardhat-ethers/types';
-import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
+import {ETHMarketplace} from "erc721nftlab/typechain/ETHMarketplace";
+import {NFTLabStoreMarketplaceVariant} from "erc721nftlab/typechain/NFTLabStoreMarketplaceVariant";
 
 @Injectable({
   providedIn: 'root',
 })
 export class MarketplaceService {
-  private _ethMarketplace: ETHMarketplace | undefined;
-  private _markeplaceStore: NFTLabStoreMarketplaceVariant | undefined;
+  private _ETHMarketplace: ETHMarketplace | undefined;
+  private _marketplaceStore: NFTLabStoreMarketplaceVariant | undefined;
+
   constructor(private walletProvider: WalletProviderService) {}
 
   async getEthMarketplace() {
-    if (this._ethMarketplace) return this._ethMarketplace;
-    const factory = await getContractFactory('ETHMarketplace');
-    this._ethMarketplace = factory.attach(
-      environment.contractAddress
-    ) as ETHMarketplace;
-    return this._ethMarketplace;
+    if (!this._ETHMarketplace) {
+      this._ETHMarketplace = new ETHMarketplace(
+        environment.contractAddress,
+        ETHM_INTERFACE['abi'],
+        this.walletProvider.signer
+      );
+    }
+    return this._ETHMarketplace;
   }
 
   async getMarketplaceStore() {
-    if (!this._markeplaceStore) {
-      const factory = await getContractFactory('NFTLabStoreMarketplaceVariant');
-      const storeAddr = await this._ethMarketplace?.getStorage();
-      if (storeAddr)
-        this._markeplaceStore = factory.attach(
-          storeAddr
-        ) as NFTLabStoreMarketplaceVariant;
-      else throw new Error();
+    if (!this._marketplaceStore) {
+      const addr = await (await this.getEthMarketplace()).getStorage();
+      this._marketplaceStore = new NFTLabStoreMarketplaceVariant(
+        addr,
+        NFTLS_INTERFACE['abi'],
+        this.walletProvider.signer
+      );
     }
-    return this._markeplaceStore;
+    return this._marketplaceStore;
   }
 }

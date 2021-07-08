@@ -15,7 +15,7 @@ export class WalletProviderService {
 
   get wallet() {
     if (!this._wallet) {
-      if((window as any).ethereum != undefined) {
+      if ((window as any).ethereum != undefined) {
         this._wallet = (window as any).ethereum;
       } else {
         throw new Error('Provider not available because of no signers');
