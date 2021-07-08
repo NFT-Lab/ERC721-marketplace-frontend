@@ -5,6 +5,7 @@ import NFTLS_INTERFACE from 'erc721nftlab/artifacts/contracts/NFTLabStoreMarketp
 import { environment } from '../../../environments/environment';
 import { ETHMarketplace } from 'erc721nftlab/typechain/ETHMarketplace';
 import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
+import { ethers } from 'ethers';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +18,11 @@ export class MarketplaceService {
 
   async getEthMarketplace() {
     if (!this._ETHMarketplace) {
-      this._ETHMarketplace = new ETHMarketplace(
+      this._ETHMarketplace = new ethers.Contract(
         environment.contractAddress,
         ETHM_INTERFACE['abi'],
         this.walletProvider.signer
-      );
+      ) as ETHMarketplace;
     }
     return this._ETHMarketplace;
   }
@@ -29,11 +30,11 @@ export class MarketplaceService {
   async getMarketplaceStore() {
     if (!this._marketplaceStore) {
       const addr = await (await this.getEthMarketplace()).getStorage();
-      this._marketplaceStore = new NFTLabStoreMarketplaceVariant(
+      this._marketplaceStore = new ethers.Contract(
         addr,
         NFTLS_INTERFACE['abi'],
         this.walletProvider.signer
-      );
+      ) as NFTLabStoreMarketplaceVariant;
     }
     return this._marketplaceStore;
   }
