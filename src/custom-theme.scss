@@ -12,24 +12,84 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$metamaskdApp-primary: mat.define-palette(mat.$indigo-palette);
-$metamaskdApp-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$primary-palette: (
+  50 : #f2e0fa,
+  100 : #dfb3f2,
+  200 : #ca80e9,
+  300 : #b44de0,
+  400 : #a426da,
+  500 : #9400d3,
+  600 : #8c00ce,
+  700 : #8100c8,
+  800 : #7700c2,
+  900 : #6500b7,
+  A100 : #efe0ff,
+  A200 : #d5adff,
+  A400 : #bb7aff,
+  A700 : #ae61ff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
 
-// The warn palette is optional (defaults to red).
-$metamaskdApp-warn: mat.define-palette(mat.$red-palette);
+/* For use in src/lib/core/theming/_palette.scss */
+$accent-palette: (
+  50 : #fff8e0,
+  100 : #ffedb3,
+  200 : #ffe180,
+  300 : #ffd54d,
+  400 : #ffcc26,
+  500 : #ffc300,
+  600 : #ffbd00,
+  700 : #ffb500,
+  800 : #ffae00,
+  900 : #ffa100,
+  A100 : #ffffff,
+  A200 : #fffaf2,
+  A400 : #ffe5bf,
+  A700 : #ffdaa6,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$metamaskdApp-theme: mat.define-light-theme((
+$primary: mat.define-palette($primary-palette);
+$accent: mat.define-palette($accent-palette);
+$warn: mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-light-theme((
   color: (
-    primary: $metamaskdApp-primary,
-    accent: $metamaskdApp-accent,
-    warn: $metamaskdApp-warn,
+    primary: $primary,
+    accent: $accent,
+    warn: $warn
   )
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($metamaskdApp-theme);
+@include mat.all-component-themes($theme)
 

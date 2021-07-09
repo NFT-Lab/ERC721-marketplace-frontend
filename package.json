@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/file-input": "^6.0.0",
     "@angular/animations": "~12.0.4",
     "@angular/cdk": "^12.1.0",
     "@angular/common": "~12.0.4",
@@ -37,6 +38,7 @@
     "@angular/compiler-cli": "~12.0.4",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "ipfs": "^0.55.4",
     "jasmine-core": "~3.7.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

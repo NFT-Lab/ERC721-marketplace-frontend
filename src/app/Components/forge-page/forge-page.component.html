@@ -1,10 +1,60 @@
 <main class="content">
-  <mat-form-field appearance="outline">
-    <mat-label>Title</mat-label>
-    <input matInput />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Description</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field>
+  <form #mintForm="ngForm" (ngSubmit)="mint()">
+    <mat-form-field appearance="outline">
+      <ngx-mat-file-input> </ngx-mat-file-input>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Author name</mat-label>
+      <input matInput />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Author wallet</mat-label>
+      <input matInput value="{{ walletAddress }}" />
+    </mat-form-field>
+    <mat-form-field class="example-chip-list" appearance="outline">
+      <mat-label>Select categories</mat-label>
+      <mat-chip-list #chipList aria-label="Categories selection">
+        <mat-chip
+          *ngFor="let category of categories"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(category)"
+        >
+          {{ category }}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Categories..."
+          #categoryInput
+          [formControl]="categoryCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-list>
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="selected($event)"
+      >
+        <mat-option
+          *ngFor="let category of filteredCategories | async"
+          [value]="category"
+        >
+          {{ category }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="card-container">
+      <button type="submit" class="card card-small">Mint NFT</button>
+    </div>
+  </form>
 </main>
