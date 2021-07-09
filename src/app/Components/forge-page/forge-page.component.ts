@@ -1,12 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { WalletService } from '../../Services/WalletService/wallet.service';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { IpfsService } from '../../Services/IpfsService/ipfs.service';
+import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
+import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
+import { Web3ProviderService } from '../../Services/Web3ProviderService/web3-provider.service';
+
+export interface IPFSResponse {
+  IpfsHash: string;
+  PinSize: number;
+  Timestamp: string;
+  isDuplicate?: boolean;
+}
 
 @Component({
   selector: 'app-forge-page',
@@ -15,20 +20,25 @@ import { IpfsService } from '../../Services/IpfsService/ipfs.service';
 })
 export class ForgePageComponent implements OnInit {
   walletAddress: string = '';
-  categories: string[] = [];
-  selectable: boolean = true;
-  removable: boolean = true;
-  categoryCtrl: FormControl = new FormControl();
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  private allCategories: string[] = ['Image', 'Music', 'Video'];
-  filteredCategories: Observable<string[]>;
 
-  @ViewChild('categoryInput')
-  categoryInput!: ElementRef<HTMLInputElement>;
+  mintForm: FormGroup = this.formBuilder.group({
+    file: File,
+    title: '',
+    description: '',
+    author: '',
+    wallet: '',
+    categories: '',
+  });
+  minted: boolean = false;
+  mintMessage: string = 'Mint NFT';
+  img_cid: string = '';
 
   constructor(
     private walletService: WalletService,
-    private ipfsService: IpfsService
+    private providerServide: Web3ProviderService,
+    private ipfsService: IpfsService,
+    private formBuilder: FormBuilder,
+    private marketplace: MarketplaceService
   ) {
     walletService
       .getAccounts()
@@ -38,48 +48,52 @@ export class ForgePageComponent implements OnInit {
       .catch((error) => {
         console.log(error);
       });
-    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) =>
-        fruit ? this._filter(fruit) : this.allCategories.slice()
-      )
-    );
   }
 
-  ngOnInit(): void {}
-
-  remove(category: string) {
-    const index = this.categories.indexOf(category);
-    if (index >= 0) {
-      this.categories.splice(index, 1);
-    }
-  }
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    if (value && this.allCategories.includes(value)) {
-      this.categories.push(value);
-    }
-    event.chipInput!.clear();
-
-    this.categoryCtrl.setValue(null);
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.categories.push(event.option.viewValue);
-    this.categoryInput.nativeElement.value = '';
-    this.categoryCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.allCategories.filter((category) =>
-      category.toLowerCase().includes(filterValue)
-    );
+  ngOnInit(): void {
+    this.mintForm.setValue({
+      file: File,
+      title: '',
+      description: '',
+      author: '',
+      wallet: this.walletAddress,
+      categories: '',
+    });
   }
 
   mint() {
-    console.log('Mint called');
+    if (this.minted) {
+      window.open('https://etherscan.io/tx/' + this.mintMessage);
+    } else {
+      this.ipfsService
+        .addFile(this.mintForm.value.file, {
+          name: this.mintForm.value.title,
+          categories: [],
+        })
+        .then((artResponse) => {
+          const art_res = artResponse as IPFSResponse;
+          this.ipfsService
+            .addJson(
+              JSON.stringify({ ...this.mintForm.value, file: undefined })
+            )
+            .then((metadataResponse) => {
+              const meta_res = metadataResponse as IPFSResponse;
+              this.marketplace.getMarketplaceStore().then((store) => {
+                if (this.providerServide.provider)
+                  store
+                    .connect(this.providerServide.provider.getSigner())
+                    .mint(this.walletAddress, {
+                      cid: art_res.IpfsHash,
+                      metadataCid: meta_res.IpfsHash,
+                    })
+                    .then((tx) => {
+                      this.img_cid = art_res.IpfsHash;
+                      this.minted = true;
+                      this.mintMessage = tx.hash;
+                    });
+              });
+            });
+        });
+    }
   }
 }

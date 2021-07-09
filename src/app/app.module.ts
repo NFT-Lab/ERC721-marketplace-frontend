@@ -22,6 +22,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { HttpClientModule } from '@angular/common/http';
+import { ChipListComponent } from './Components/forge-page/chip-list/chip-list.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     ForgePageComponent,
     NFTPreviewComponent,
     ArtDetailPageComponent,
+    ChipListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Provider } from '@angular/core';
 import { WalletProviderService } from '../WalletProviderService/wallet-provider.service';
 import ETHM_INTERFACE from 'erc721nftlab/artifacts/contracts/ETHMarketplace.sol/ETHMarketplace.json';
 import NFTLS_INTERFACE from 'erc721nftlab/artifacts/contracts/NFTLabStoreMarketplaceVariant.sol/NFTLabStoreMarketplaceVariant.json';

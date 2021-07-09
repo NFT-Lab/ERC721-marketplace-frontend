@@ -1,15 +1,14 @@
 <figure class="card-container preview-container">
   <div class="info">
-    <h3>Title</h3>
-    <p>author</p>
+    <h3>{{ title }}</h3>
+    <p>{{ author }}</p>
   </div>
   <img
     #image
     class="card preview"
-    src="https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg"
+    [src]="'https://gateway.pinata.cloud/ipfs/' + img"
   />
   <figcaption class="preview-description">
-    Bla bla bla, descrizione abbastanza lunghetta, magari da mettere su più
-    righe? ora vediamo
+    {{ description }}
   </figcaption>
 </figure>
