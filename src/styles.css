@@ -26,18 +26,6 @@ p {
   flex: 1;
 }
 
-header {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  color: black;
-}
-
 .toolbar img {
   margin: 0 16px;
 }
@@ -206,4 +194,9 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.wallet-addr-compressed {
+  font-size: 10px;
+  font-weight: bold;
 }

@@ -2,11 +2,21 @@
   <div class="info">
     <h3>{{ title }}</h3>
     <p>{{ author }}</p>
+    <div class="vert-spacer"></div>
+    <p
+      class="wallet-addr-compressed"
+      [cdkCopyToClipboard]="wallet"
+      matTooltip="author wallet, click to copy"
+      matTooltipPosition="below"
+    >
+      {{ wallCompressed }}
+    </p>
   </div>
   <img
     #image
     class="card preview"
-    [src]="'https://gateway.pinata.cloud/ipfs/' + img"
+    [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
+    (click)="open('https://gateway.pinata.cloud/ipfs/' + cid)"
   />
   <figcaption class="preview-description">
     {{ description }}

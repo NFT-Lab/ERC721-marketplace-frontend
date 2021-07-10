@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { WalletService } from '../../Services/WalletService/wallet.service';
 import { IpfsService } from '../../Services/IpfsService/ipfs.service';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
-import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
 import { Web3ProviderService } from '../../Services/Web3ProviderService/web3-provider.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface IPFSResponse {
   IpfsHash: string;
@@ -31,14 +31,15 @@ export class ForgePageComponent implements OnInit {
   });
   minted: boolean = false;
   mintMessage: string = 'Mint NFT';
-  img_cid: string = '';
+  nft: { metadataHash: string; cid: string } = { cid: '', metadataHash: '' };
 
   constructor(
     private walletService: WalletService,
-    private providerServide: Web3ProviderService,
+    private providerService: Web3ProviderService,
     private ipfsService: IpfsService,
     private formBuilder: FormBuilder,
-    private marketplace: MarketplaceService
+    private marketplace: MarketplaceService,
+    private _snackBar: MatSnackBar
   ) {
     walletService
       .getAccounts()
@@ -65,29 +66,52 @@ export class ForgePageComponent implements OnInit {
     if (this.minted) {
       window.open('https://etherscan.io/tx/' + this.mintMessage);
     } else {
+      this._snackBar.open('Saving the file on ipfs', 'dismiss', {
+        horizontalPosition: 'end',
+        verticalPosition: 'bottom',
+      });
       this.ipfsService
         .addFile(this.mintForm.value.file, {
           name: this.mintForm.value.title,
           categories: [],
         })
         .then((artResponse) => {
+          this._snackBar.open('Saving the file metadata on ipfs', 'dismiss', {
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
           const art_res = artResponse as IPFSResponse;
           this.ipfsService
             .addJson(
               JSON.stringify({ ...this.mintForm.value, file: undefined })
             )
             .then((metadataResponse) => {
+              this._snackBar.open('Getting the store', 'dismiss', {
+                horizontalPosition: 'end',
+                verticalPosition: 'bottom',
+              });
               const meta_res = metadataResponse as IPFSResponse;
               this.marketplace.getMarketplaceStore().then((store) => {
-                if (this.providerServide.provider)
+                this._snackBar.open('minting the NFT', 'dismiss', {
+                  horizontalPosition: 'end',
+                  verticalPosition: 'bottom',
+                });
+                if (this.providerService.provider)
                   store
-                    .connect(this.providerServide.provider.getSigner())
+                    .connect(this.providerService.provider.getSigner())
                     .mint(this.walletAddress, {
                       cid: art_res.IpfsHash,
                       metadataCid: meta_res.IpfsHash,
                     })
                     .then((tx) => {
-                      this.img_cid = art_res.IpfsHash;
+                      this._snackBar.open('Minted!!', 'dismiss', {
+                        horizontalPosition: 'end',
+                        verticalPosition: 'bottom',
+                      });
+                      this.nft = {
+                        cid: art_res.IpfsHash,
+                        metadataHash: meta_res.IpfsHash,
+                      };
                       this.minted = true;
                       this.mintMessage = tx.hash;
                     });

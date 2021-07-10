@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
 import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
+import { range } from 'rxjs';
 
 @Component({
   selector: 'app-art-page',
@@ -9,14 +10,32 @@ import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStor
 })
 export class ArtPageComponent implements OnInit {
   total: number = 0;
-  art: string[] = [];
   private marketStore: NFTLabStoreMarketplaceVariant | undefined;
+  arts: { cid: string; metadataCid: string }[] = [];
   constructor(private market: MarketplaceService) {}
 
   async ngOnInit(): Promise<void> {
-    this.marketStore = await this.market.getMarketplaceStore();
-    setInterval(async () => {
-      this.total = (await this.marketStore?.totalSupply())?.toNumber() ?? 0;
-    }, 1000);
+    this.market.getMarketplaceStore().then((store) => {
+      this.marketStore = store;
+      store.totalSupply().then((supply) => {
+        this.total = supply.toNumber();
+        range(0, supply.toNumber()).forEach((next) => {
+          store.tokenByIndex(next).then((token) => {
+            store
+              .getNFTById(token)
+              .then((nft) => {
+                this.arts.push(nft);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          });
+        });
+      });
+    });
+  }
+
+  onScroll() {
+    this.ngOnInit();
   }
 }

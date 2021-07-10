@@ -1,10 +1,16 @@
 <main class="content">
   Total supply: {{ total }}
-  <div style="height: 50px"></div>
-  <app-nft-preview
-    [title]="'Title'"
-    [author]="'Author'"
-    [description]="'desc'"
-    [img-src]="'QmUtWjSTsJM141AEdY8QJBrDPkpAZjDBXenvrzqJvBcvG8'"
-  ></app-nft-preview>
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+  >
+    <app-nft-preview
+      *ngFor="let art; in: arts"
+      [cid]="art.cid"
+      [metadataCid]="art.metadataCid"
+    ></app-nft-preview>
+  </div>
 </main>

@@ -33,10 +33,26 @@
   </ng-template>
   <ng-template #thenBlock>
     <app-nft-preview
-      [title]="mintForm.value.title"
-      [author]="mintForm.value.author"
-      [img-src]="img_cid"
-      [description]="mintForm.value.desc"
+      [cid]="nft.cid"
+      [metadataCid]="nft.metadataHash"
     ></app-nft-preview>
+    <div class="card-container">
+      <div
+        class="card card-small"
+        [cdkCopyToClipboard]="this.nft.cid"
+        matTooltip="click to copy"
+        matTooltipPosition="right"
+      >
+        contentID
+      </div>
+      <div
+        class="card card-small"
+        [cdkCopyToClipboard]="this.nft.metadataHash"
+        matTooltip="click to copy"
+        matTooltipPosition="right"
+      >
+        metadata
+      </div>
+    </div>
   </ng-template>
 </main>

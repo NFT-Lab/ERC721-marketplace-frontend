@@ -27,6 +27,7 @@
     "erc721nftlab": "^2.3.2",
     "ethers": "^5.4.0",
     "light-icons": "^1.0.8",
+    "ngx-infinite-scroll": "^10.0.1",
     "prettier": "^2.3.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",

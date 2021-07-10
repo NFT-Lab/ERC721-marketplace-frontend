@@ -11,16 +11,16 @@
 .info {
   text-align: left;
   position: absolute;
-  left: 300px;
+  left: 400px;
 }
 
-img.preview {
+.preview {
   object-fit: cover;
   width: 200px;
   height: 200px;
   float: left;
   position: absolute;
-  left: 50px;
+  left: 150px;
   border-radius: 5px;
   padding: 0;
   border: 0;
@@ -33,6 +33,10 @@ img.preview {
   font-weight: 30;
   width: 300px;
   position: absolute;
-  right: 150px;
+  right: 250px;
   text-align: right;
+}
+
+.vert-spacer {
+  height: 125px;
 }

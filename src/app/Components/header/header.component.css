@@ -16,6 +16,19 @@
   }
 }
 
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: black;
+  z-index: 1;
+}
+
 .header-link {
   margin: 30px;
   cursor: pointer;

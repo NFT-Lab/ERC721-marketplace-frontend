@@ -23,6 +23,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { HttpClientModule } from '@angular/common/http';
 import { ChipListComponent } from './Components/forge-page/chip-list/chip-list.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,10 @@ import { ChipListComponent } from './Components/forge-page/chip-list/chip-list.c
     MatChipsModule,
     NgxMatFileInputModule,
     HttpClientModule,
+    MatSnackBarModule,
+    InfiniteScrollModule,
+    ClipboardModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
