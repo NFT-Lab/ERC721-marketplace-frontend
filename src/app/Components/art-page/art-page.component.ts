@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
 import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
 import { range } from 'rxjs';
@@ -33,9 +33,5 @@ export class ArtPageComponent implements OnInit {
         });
       });
     });
-  }
-
-  onScroll() {
-    this.ngOnInit();
   }
 }

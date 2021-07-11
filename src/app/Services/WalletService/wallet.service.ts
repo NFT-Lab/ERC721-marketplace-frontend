@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
 import { WalletProviderService } from '../WalletProviderService/wallet-provider.service';
 import methods from './wallet.methods.map';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class WalletService {
+export class WalletService implements CanActivate {
   private accounts: string[] | undefined;
-  constructor(private walletProvider: WalletProviderService) {}
+
+  constructor(
+    private walletProvider: WalletProviderService,
+    private router: Router
+  ) {}
 
   public async isConnected() {
     try {
@@ -35,5 +47,10 @@ export class WalletService {
 
   public hasAccounts() {
     return this.accounts != null;
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (!this.hasAccounts()) this.router.navigate(['home']);
+    return this.hasAccounts();
   }
 }

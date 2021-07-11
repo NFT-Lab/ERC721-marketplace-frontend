@@ -1,10 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IpfsService } from '../../../../Services/IpfsService/ipfs.service';
+import { Router } from '@angular/router';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-nft-preview',
   templateUrl: './nft-preview.component.html',
   styleUrls: ['./nft-preview.component.css'],
+  animations: [
+    trigger('entering', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('.3s', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [animate('.3s', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class NFTPreviewComponent implements OnInit {
   title: string = '';
@@ -15,8 +26,9 @@ export class NFTPreviewComponent implements OnInit {
 
   @Input('cid') cid!: string;
   @Input('metadataCid') metadataCid!: string;
+  @Input('orientation') orientation!: string;
 
-  constructor(private ipfs: IpfsService) {}
+  constructor(private ipfs: IpfsService, private router: Router) {}
 
   ngOnInit(): void {
     this.ipfs.getMetadata(this.metadataCid).subscribe((data) => {
@@ -30,6 +42,10 @@ export class NFTPreviewComponent implements OnInit {
   }
 
   open(s: string) {
-    window.open(s);
+    this.router.navigate([s]);
+  }
+
+  reverse(orientation: string) {
+    return orientation == 'right' ? 'left' : 'right';
   }
 }

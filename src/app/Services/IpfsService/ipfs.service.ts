@@ -3,7 +3,7 @@ import { PinataInterfaceService } from '../PinataInterface/pinata-interface.serv
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface Metadata {
+export interface Metadata {
   title: string;
   author: string;
   art: string;

@@ -7,13 +7,30 @@
   >
     Categories
   </div>
+  <div class="spacer"></div>
   <div
-    *ngIf="canForge()"
+    routerLink="my-art"
+    *ngIf="accountOptions"
+    @entering
+    [ngClass]="isActive('/my-art') + ' header-link'"
+  >
+    My Art
+  </div>
+  <div
+    routerLink="buy"
+    *ngIf="accountOptions"
+    @entering
+    [ngClass]="isActive('/buy') + ' header-link'"
+  >
+    Buy
+  </div>
+  <div
+    *ngIf="accountOptions"
+    @entering
     routerLink="forge"
     [ngClass]="isActive('/forge') + ' header-link'"
   >
     Forge
   </div>
-  <div class="spacer"></div>
   <app-wallet-button></app-wallet-button>
 </header>

@@ -3,7 +3,7 @@
     [ngClass]="
       'card ' + (accountsAvailable() ? 'card-mini active' : 'card-small')
     "
-    (click)="accountsAvailable() ? openAccountsModal() : requestAccounts()"
+    (click)="accountsAvailable() ? openAccountsOptions() : requestAccounts()"
   >
     <div *ngIf="accountsAvailable(); then walleticon; else connectblock"></div>
     <ng-template #walleticon>

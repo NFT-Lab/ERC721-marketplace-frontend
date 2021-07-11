@@ -27,6 +27,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     InfiniteScrollModule,
     ClipboardModule,
     MatTooltipModule,
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,10 @@
-.viewport {
-  height: 500px;
+.cdk-virtual-scroll-viewport {
+  height: 100%;
   width: 100%;
+}
+
+app-nft-preview:not(:first-child) {
+  margin-top: 50px;
 }
 
 .item {

@@ -1,16 +1,8 @@
 <main class="content">
-  Total supply: {{ total }}
-  <div
-    infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
-    (scrolled)="onScroll()"
-    [scrollWindow]="false"
-  >
-    <app-nft-preview
-      *ngFor="let art; in: arts"
-      [cid]="art.cid"
-      [metadataCid]="art.metadataCid"
-    ></app-nft-preview>
-  </div>
+  <app-nft-preview
+    *ngFor="let art of arts; let even = even"
+    [cid]="art.cid"
+    [metadataCid]="art.metadataCid"
+    [orientation]="even ? 'left' : 'right'"
+  ></app-nft-preview>
 </main>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletService } from '../../../Services/WalletService/wallet.service';
+import { HeaderComponent } from '../header.component';
 
 @Component({
   selector: 'app-wallet-button',
@@ -10,7 +11,10 @@ export class WalletButtonComponent implements OnInit {
   public message: string = '';
   account: String | undefined;
 
-  constructor(private walletService: WalletService) {}
+  constructor(
+    private walletService: WalletService,
+    private header: HeaderComponent
+  ) {}
 
   async ngOnInit(): Promise<void> {
     if (await this.walletService.isConnected()) {
@@ -35,5 +39,7 @@ export class WalletButtonComponent implements OnInit {
         });
   }
 
-  openAccountsModal() {}
+  openAccountsOptions() {
+    this.header.toggleOptions();
+  }
 }

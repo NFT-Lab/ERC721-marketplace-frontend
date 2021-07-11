@@ -1,21 +1,3 @@
-@keyframes activate {
-  from {
-    color: currentColor;
-  }
-  to {
-    color: darkviolet;
-  }
-}
-
-@keyframes deactivate {
-  from {
-    color: currentColor;
-  }
-  to {
-    color: lightgrey;
-  }
-}
-
 header {
   position: sticky;
   top: 0;

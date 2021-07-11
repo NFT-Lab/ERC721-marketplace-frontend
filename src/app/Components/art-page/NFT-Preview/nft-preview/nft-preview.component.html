@@ -1,8 +1,15 @@
-<figure class="card-container preview-container">
-  <div class="info">
-    <h3>{{ title }}</h3>
-    <p>{{ author }}</p>
-    <div class="vert-spacer"></div>
+<figure @entering [ngClass]="'card-container preview-container-' + orientation">
+  <img
+    #image
+    class="card preview"
+    [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
+    [routerLink]="cid"
+  />
+  <div [ngClass]="'info ' + orientation">
+    <div class="title-author">
+      <h3>{{ title }}</h3>
+      <p>{{ author }}</p>
+    </div>
     <p
       class="wallet-addr-compressed"
       [cdkCopyToClipboard]="wallet"
@@ -12,13 +19,7 @@
       {{ wallCompressed }}
     </p>
   </div>
-  <img
-    #image
-    class="card preview"
-    [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
-    (click)="open('https://gateway.pinata.cloud/ipfs/' + cid)"
-  />
-  <figcaption class="preview-description">
-    {{ description }}
+  <figcaption [ngClass]="'description ' + reverse(orientation)">
+    <div>{{ description }}</div>
   </figcaption>
 </figure>
