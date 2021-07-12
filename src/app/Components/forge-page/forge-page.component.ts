@@ -42,7 +42,7 @@ export class ForgePageComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {
     walletService
-      .getAccounts()
+      .requestAccounts()
       .then((accounts) => {
         this.walletAddress = accounts ? accounts[0] : '';
       })

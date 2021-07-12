@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MarketplaceService } from '../../../Services/MarketplaceService/marketplace.service';
-import {
-  IpfsService,
-  Metadata,
-} from '../../../Services/IpfsService/ipfs.service';
+import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
+import { IpfsService, Metadata } from '../../Services/IpfsService/ipfs.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-art-detail-page',
   templateUrl: './art-detail-page.component.html',
   styleUrls: ['./art-detail-page.component.css'],
+  animations: [
+    trigger('entering', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1s', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('.3s', style({ opacity: 0, left: '-100%' })),
+      ]),
+    ]),
+  ],
 })
 export class ArtDetailPageComponent implements OnInit {
   cid: string | undefined;

@@ -16,7 +16,7 @@ import { NFTPreviewComponent } from './Components/art-page/NFT-Preview/nft-previ
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ArtDetailPageComponent } from './Components/art-page/art-detail-page/art-detail-page.component';
+import { ArtDetailPageComponent } from './Components/art-detail-page/art-detail-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
@@ -28,6 +28,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
+import { MyArtPageComponent } from './Components/my-art-page/my-art-page.component';
+import { WalletProviderService } from './Services/WalletProviderService/wallet-provider.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { MatRippleModule } from '@angular/material/core';
     NFTPreviewComponent,
     ArtDetailPageComponent,
     ChipListComponent,
+    MyArtPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatTooltipModule,
     MatRippleModule,
   ],
-  providers: [],
+  providers: [WalletProviderService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: stretch;
+  font-weight: 30;
+}
+
+.image {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  float: left;
+  padding: 0;
+  margin: auto 0;
+  border-radius: 15px;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.author,
+.description {
+  text-align: right;
+}
+
+.description {
+  padding-top: 30px;
+  max-width: 500px;
+}
+
+.wallet-addr-compressed {
+  margin: auto 0;
+}
+
+.address {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  vertical-align: top;
+}

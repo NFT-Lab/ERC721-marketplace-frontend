@@ -1,0 +1,22 @@
+<main class="content card-container">
+  <div class="container">
+    <img
+      class="card image"
+      [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
+      (click)="openInNewWindow()"
+    />
+    <div @entering class="info">
+      <h3 class="title">{{ metadata?.title }}</h3>
+      <p class="author">by {{ metadata?.author }}</p>
+      <p class="description">{{ metadata?.description }}</p>
+      <div class="spacer"></div>
+      <div class="address">
+        minter
+        <span class="wallet-addr-compressed">{{ metadata?.wallet }}</span>
+      </div>
+      <div class="address">
+        owner <span class="wallet-addr-compressed">{{ owner }}</span>
+      </div>
+    </div>
+  </div>
+</main>

@@ -19,7 +19,9 @@ export class WalletService implements CanActivate {
   constructor(
     private walletProvider: WalletProviderService,
     private router: Router
-  ) {}
+  ) {
+    walletProvider.wallet.on('accountsChanged', this.requestAccounts);
+  }
 
   public async isConnected() {
     try {
@@ -31,18 +33,13 @@ export class WalletService implements CanActivate {
   }
 
   public async requestAccounts(): Promise<string[] | undefined> {
-    if (await this.isConnected()) {
+    if (this.walletProvider.wallet) {
       this.accounts = await this.walletProvider.wallet.request(
         methods['requestAccounts']
       );
       return this.accounts;
     }
     return undefined;
-  }
-
-  public async getAccounts() {
-    if (this.accounts) return this.accounts;
-    else return await this.requestAccounts();
   }
 
   public hasAccounts() {

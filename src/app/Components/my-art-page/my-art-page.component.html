@@ -1,0 +1,8 @@
+<main class="content">
+  <app-nft-preview
+    *ngFor="let art of arts; let even = even"
+    [cid]="art.cid"
+    [metadataCid]="art.metadataCid"
+    [orientation]="even ? 'left' : 'right'"
+  ></app-nft-preview>
+</main>

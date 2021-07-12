@@ -17,14 +17,6 @@
     My Art
   </div>
   <div
-    routerLink="buy"
-    *ngIf="accountOptions"
-    @entering
-    [ngClass]="isActive('/buy') + ' header-link'"
-  >
-    Buy
-  </div>
-  <div
     *ngIf="accountOptions"
     @entering
     routerLink="forge"
