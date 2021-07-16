@@ -1,0 +1,18 @@
+<div mat-dialog-content>
+  <p>Set price for this NFT (in ETH)</p>
+  <mat-form-field appearance="outline">
+    <mat-label>Price</mat-label>
+    <input matInput [(ngModel)]="data.price" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="card-container">
+  <div class="card card-small" mat-button (click)="onNoClick()">Revert</div>
+  <div
+    class="card card-small"
+    mat-button
+    [mat-dialog-close]="data.price"
+    cdkFocusInitial
+  >
+    Sell
+  </div>
+</div>

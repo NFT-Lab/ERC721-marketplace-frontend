@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IpfsService } from '../../../../Services/IpfsService/ipfs.service';
+import { IpfsService } from '../../../Services/IpfsService/ipfs.service';
 import { Router } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
 

@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletService } from '../../Services/WalletService/wallet.service';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CanActivate } from '@angular/router';
+import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +20,10 @@ import {
 })
 export class HeaderComponent implements OnInit {
   accountOptions: boolean = false;
-  constructor(private walletService: WalletService) {}
+  constructor(
+    private walletService: WalletService,
+    private provider: WalletProviderService
+  ) {}
 
   ngOnInit(): void {}
 

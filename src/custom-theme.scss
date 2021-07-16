@@ -80,7 +80,7 @@ $accent-palette: (
 );
 
 $primary: mat.define-palette($primary-palette);
-$accent: mat.define-palette($accent-palette);
+$accent: mat.define-palette(mat.$red-palette);
 $warn: mat.define-palette(mat.$red-palette);
 
 $theme: mat.define-light-theme((

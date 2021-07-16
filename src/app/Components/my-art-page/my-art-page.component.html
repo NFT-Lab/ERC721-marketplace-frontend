@@ -1,8 +1,15 @@
 <main class="content">
-  <app-nft-preview
-    *ngFor="let art of arts; let even = even"
-    [cid]="art.cid"
-    [metadataCid]="art.metadataCid"
-    [orientation]="even ? 'left' : 'right'"
-  ></app-nft-preview>
+  <div *ngIf="hasPieces(); then thenBlock; else elseBlock"></div>
+  <ng-template #thenBlock>
+    <app-nft-preview
+      *ngFor="let art of arts; let even = even"
+      [cid]="art.cid"
+      [metadataCid]="art.metadataCid"
+      [orientation]="even ? 'left' : 'right'"
+    ></app-nft-preview>
+  </ng-template>
+  <ng-template #elseBlock>
+    <div class="state">{{ this.state }}</div>
+    <mat-spinner diameter="40" *ngIf="loading"></mat-spinner>
+  </ng-template>
 </main>

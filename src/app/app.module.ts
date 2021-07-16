@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ForgePageComponent } from './Components/forge-page/forge-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { NFTPreviewComponent } from './Components/art-page/NFT-Preview/nft-preview/nft-preview.component';
+import { NFTPreviewComponent } from './Components/art-page/NFT-Preview/nft-preview.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +30,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { MyArtPageComponent } from './Components/my-art-page/my-art-page.component';
 import { WalletProviderService } from './Services/WalletProviderService/wallet-provider.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SellDialogComponent } from './Components/art-detail-page/sell-dialog/sell-dialog.component';
+import { BuyDialogComponent } from './Components/art-detail-page/buy-dialog/buy-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { WalletService } from './Services/WalletService/wallet.service';
+import { MarketplaceService } from './Services/MarketplaceService/marketplace.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +51,8 @@ import { WalletProviderService } from './Services/WalletProviderService/wallet-p
     ArtDetailPageComponent,
     ChipListComponent,
     MyArtPageComponent,
+    SellDialogComponent,
+    BuyDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,8 +74,11 @@ import { WalletProviderService } from './Services/WalletProviderService/wallet-p
     ClipboardModule,
     MatTooltipModule,
     MatRippleModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
-  providers: [WalletProviderService],
+  providers: [WalletProviderService, WalletService, MarketplaceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

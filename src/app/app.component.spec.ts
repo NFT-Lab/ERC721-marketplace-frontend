@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './Components/header/header.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -18,6 +19,7 @@ describe('AppComponent', () => {
 
   it(`should have as title 'metamaskdApp'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
+    TestBed.inject(HeaderComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('metamaskdApp');
   });
@@ -27,7 +29,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain(
-      'metamaskdApp app is running!'
+      'Langing page.'
     );
   });
 });

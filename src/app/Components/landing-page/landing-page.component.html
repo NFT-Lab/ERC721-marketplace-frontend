@@ -1,1 +1,22 @@
-<main class="content">Landing Page</main>
+<main class="content">
+  <h1 class="typing">{{ title }}</h1>
+  <h2 @entering *ngIf="display_functionalities">Functionalities</h2>
+  <div @entering *ngIf="display_functionalities" id="funcs">
+    <ul>
+      <li
+        class="info-container"
+        @entering
+        *ngFor="let func of functionalities; let even = even; let index = index"
+      >
+        <i *ngIf="even" [className]="'icon light-icon-' + icon[index]"></i>
+        <div [className]="even ? 'info right' : 'info'">
+          <h3>{{ func }}</h3>
+          <p>
+            {{ desc[index] }}
+          </p>
+        </div>
+        <i *ngIf="!even" [className]="'icon light-icon-' + icon[index]"></i>
+      </li>
+    </ul>
+  </div>
+</main>

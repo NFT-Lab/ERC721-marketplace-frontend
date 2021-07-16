@@ -6,27 +6,33 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class WalletService implements CanActivate {
   private accounts: string[] | undefined;
+  private connected: boolean = false;
 
   constructor(
     private walletProvider: WalletProviderService,
     private router: Router
   ) {
-    walletProvider.wallet.on('accountsChanged', this.requestAccounts);
+    try {
+      this.walletProvider.wallet
+        .request({ method: 'wallet_getPermissions' })
+        .then((permissions: any[]) => {
+          permissions.forEach((permission) => {
+            if (permission['parentCapability'] == 'eth_accounts')
+              this.connected = true;
+          });
+        });
+    } catch (e) {}
   }
 
-  public async isConnected() {
+  public isConnected() {
     try {
-      const wallet = await this.walletProvider.wallet;
-      return !!wallet;
+      const wallet = this.walletProvider.wallet;
+      return !!wallet || this.connected;
     } catch (e) {
       return false;
     }
@@ -34,16 +40,25 @@ export class WalletService implements CanActivate {
 
   public async requestAccounts(): Promise<string[] | undefined> {
     if (this.walletProvider.wallet) {
-      this.accounts = await this.walletProvider.wallet.request(
-        methods['requestAccounts']
-      );
-      return this.accounts;
+      try {
+        this.accounts = await this.walletProvider.wallet.request(
+          methods['requestAccounts']
+        );
+        return this.accounts;
+      } catch (e) {}
     }
     return undefined;
   }
 
   public hasAccounts() {
     return this.accounts != null;
+  }
+
+  public getCurrentAccount() {
+    if (this.isConnected() && this.accounts && this.accounts.length > 0) {
+      return this.accounts[0];
+    }
+    throw new Error('No accounts, verify before call with .hasAccounts()');
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

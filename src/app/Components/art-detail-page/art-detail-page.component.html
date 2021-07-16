@@ -19,4 +19,19 @@
       </div>
     </div>
   </div>
+  <div class="card-container actions">
+    <div
+      *ngIf="_trade.open && !cancellable"
+      (click)="openBuyDialog()"
+      class="card card-small"
+    >
+      Buy
+    </div>
+    <div *ngIf="sellable" (click)="openSellDialog()" class="card card-small">
+      Sell
+    </div>
+    <div *ngIf="cancellable" (click)="cancel()" class="card card-small">
+      Cancel trade
+    </div>
+  </div>
 </main>

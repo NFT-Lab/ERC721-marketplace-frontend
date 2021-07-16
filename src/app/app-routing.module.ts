@@ -21,7 +21,7 @@ const routes: Routes = [
     data: { animation: 'opacity' },
   },
   {
-    path: 'forge',
+    path: 'mint',
     component: ForgePageComponent,
     canActivate: [WalletService],
     data: { animation: 'opacity' },

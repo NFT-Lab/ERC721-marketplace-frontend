@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletService } from '../../../Services/WalletService/wallet.service';
 import { HeaderComponent } from '../header.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wallet-button',
@@ -13,7 +14,8 @@ export class WalletButtonComponent implements OnInit {
 
   constructor(
     private walletService: WalletService,
-    private header: HeaderComponent
+    private header: HeaderComponent,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -36,6 +38,7 @@ export class WalletButtonComponent implements OnInit {
         .requestAccounts()
         .then((accounts: string[] | undefined) => {
           this.account = accounts ? accounts[0] : undefined;
+          if (this.account) this.router.navigate([this.router.url]);
         });
   }
 

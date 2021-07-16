@@ -9,8 +9,8 @@
 }
 
 .image {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   object-fit: cover;
   float: left;
   padding: 0;
@@ -48,4 +48,16 @@
   justify-content: space-between;
   margin-top: 30px;
   vertical-align: top;
+}
+
+.actions {
+  margin-top: 70px;
+}
+@media screen and (max-width: 767px) {
+  .container {
+    flex-direction: column;
+  }
+  .image {
+    margin: 0 auto !important;
+  }
 }

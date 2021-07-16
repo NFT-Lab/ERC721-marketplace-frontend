@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
 import { range } from 'rxjs';
 import { WalletService } from '../../Services/WalletService/wallet.service';
 import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-art-page',
@@ -14,38 +15,53 @@ export class MyArtPageComponent implements OnInit {
   total: number = 0;
   private marketStore: NFTLabStoreMarketplaceVariant | undefined;
   arts: { cid: string; metadataCid: string }[] = [];
+  state: string = 'Loading';
+  loading: boolean = true;
   constructor(
     private market: MarketplaceService,
     private wallet: WalletService,
-    private walletProvider: WalletProviderService
+    private providerService: WalletProviderService,
+    private router: Router,
+    private ngZone: NgZone
   ) {
-    walletProvider.wallet.on('accountsChanged', this.ngOnInit);
+    providerService.wallet.on('accountsChanged', () => {
+      const url = router.url;
+      router
+        .navigate(['/home'], { skipLocationChange: true })
+        .then(() => ngZone.run(() => router.navigate([url])));
+    });
   }
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit() {
     this.arts = [];
-    this.market.getMarketplaceStore().then((store) => {
-      this.marketStore = store;
-      this.wallet.requestAccounts().then((accounts) => {
-        if (accounts)
-          if (accounts.length >= 0) {
-            store.balanceOf(accounts[0]).then((supply) => {
-              this.total = supply.toNumber();
-              range(0, supply.toNumber()).forEach((next) => {
-                store.tokenOfOwnerByIndex(accounts[0], next).then((token) => {
-                  store
-                    .getNFTById(token)
-                    .then((nft) => {
-                      this.arts.push(nft);
-                    })
-                    .catch((error) => {
-                      console.error(error);
-                    });
-                });
-              });
+    this.total = 0;
+    const store = await this.market.getMarketplaceStore();
+    this.marketStore = store;
+    const accounts = await this.wallet.requestAccounts();
+    if (accounts && accounts.length >= 0) {
+      const supply = await store.balanceOf(accounts[0]);
+      this.total = supply.toNumber();
+      range(0, supply.toNumber()).forEach((next) => {
+        store.tokenOfOwnerByIndex(accounts[0], next).then((token) => {
+          store
+            .getNFTById(token)
+            .then((nft) => {
+              this.arts.push(nft);
+              this.loading = false;
+            })
+            .catch((error) => {
+              console.error(error);
             });
-          }
+        });
       });
-    });
+      if (this.total == 0) {
+        this.loading = false;
+        this.state = 'You currently have no art pieces on this contract';
+      }
+    }
+  }
+
+  hasPieces() {
+    return this.arts.length > 0;
   }
 }

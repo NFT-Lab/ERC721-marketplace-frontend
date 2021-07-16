@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+  <p>You are about to buy this NFT for {{ data.price }} ETH</p>
+  <p>However, tips are welcome!</p>
+  <mat-form-field appearance="outline">
+    <mat-label>Tip (GWEI)</mat-label>
+    <input matInput [(ngModel)]="data.tip" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="card-container">
+  <div class="card card-small" mat-button (click)="onNoClick()">Revert</div>
+  <div class="card card-small" mat-button [mat-dialog-close]="data">Buy</div>
+</div>

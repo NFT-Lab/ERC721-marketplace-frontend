@@ -1,0 +1,51 @@
+@import "~light-icons/dist/light-icon.css";
+.icon {
+  font-size: 40px;
+  margin: auto 0;
+}
+
+h1 {
+  font-size: 50px;
+  margin-bottom: 50px;
+}
+
+h2 {
+  font-size: 17px;
+  margin-bottom: 30px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 40;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.right {
+  text-align: right;
+}
+
+li {
+  font-weight: 30;
+  font-size: 14px;
+}
+
+#funcs {
+  width: 80%;
+}
+
+.info-container {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 3px wave lightgrey;
+}
+
+.info {
+  flex: 1;
+}

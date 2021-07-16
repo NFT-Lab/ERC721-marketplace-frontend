@@ -139,21 +139,6 @@ svg.material-icons:not(:last-child) {
   margin-left: 60px;
 }
 
-svg#rocket {
-  width: 80px;
-  position: absolute;
-  left: -10px;
-  top: -24px;
-}
-
-svg#rocket-smoke {
-  height: calc(100vh - 95px);
-  position: absolute;
-  top: 10px;
-  right: 180px;
-  z-index: -10;
-}
-
 a,
 a:visited,
 a:hover {
@@ -218,4 +203,11 @@ body {
 .wallet-addr-compressed {
   font-size: 10px;
   font-weight: bold;
+}
+
+.snackbar {
+  background-color: white;
+  border-radius: 20px;
+  color: black;
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }

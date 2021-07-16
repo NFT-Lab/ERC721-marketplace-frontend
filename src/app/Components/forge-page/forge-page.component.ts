@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { WalletService } from '../../Services/WalletService/wallet.service';
 import { IpfsService } from '../../Services/IpfsService/ipfs.service';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
-import { Web3ProviderService } from '../../Services/Web3ProviderService/web3-provider.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
 
 export interface IPFSResponse {
   IpfsHash: string;
@@ -35,20 +35,14 @@ export class ForgePageComponent implements OnInit {
 
   constructor(
     private walletService: WalletService,
-    private providerService: Web3ProviderService,
+    private providerService: WalletProviderService,
     private ipfsService: IpfsService,
     private formBuilder: FormBuilder,
     private marketplace: MarketplaceService,
     private _snackBar: MatSnackBar
   ) {
-    walletService
-      .requestAccounts()
-      .then((accounts) => {
-        this.walletAddress = accounts ? accounts[0] : '';
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.walletService.getCurrentAccount())
+      this.walletAddress = this.walletService.getCurrentAccount() ?? '';
   }
 
   ngOnInit(): void {

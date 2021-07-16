@@ -23,7 +23,12 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Author wallet</mat-label>
-        <input matInput formControlName="wallet" [required]="true" />
+        <input
+          matInput
+          formControlName="wallet"
+          [required]="true"
+          [defaultValue]="this.walletAddress"
+        />
       </mat-form-field>
       <app-chip-list formControlName="categories"></app-chip-list>
       <div class="card-container">
@@ -41,7 +46,7 @@
         class="card card-small"
         [cdkCopyToClipboard]="this.nft.cid"
         matTooltip="click to copy"
-        matTooltipPosition="right"
+        matTooltipPosition="below"
       >
         contentID
       </div>
@@ -49,7 +54,7 @@
         class="card card-small"
         [cdkCopyToClipboard]="this.nft.metadataHash"
         matTooltip="click to copy"
-        matTooltipPosition="right"
+        matTooltipPosition="below"
       >
         metadata
       </div>
