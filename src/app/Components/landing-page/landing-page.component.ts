@@ -25,7 +25,7 @@ export class LandingPageComponent implements OnInit {
   desc: string[] = [
     'Connect your wallet to mint an nft, registering the art piece on IPFS and registering ownership with the ethereum blockchain',
     'Once connected with metamask you can preview all your art pieces and sell them for a fixed price trough this marketplace',
-    'You can even buy other people NFTs if open for trade, or simply view all of them in the _Art_ page',
+    'You can even buy other people NFTs if open for trade, or simply view all of them in the Art page',
   ];
   icon: string[] = ['bolt', 'ticket', 'tag'];
   constructor() {

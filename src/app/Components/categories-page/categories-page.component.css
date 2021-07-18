@@ -1,0 +1,46 @@
+@import "~light-icons/dist/light-icon.css";
+
+.container {
+  min-height: 150px;
+  width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 40;
+  display: inline;
+  margin-right: 30px;
+}
+
+.icon {
+  font-size: 30px;
+}
+
+.art-container {
+  min-height: 250px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.art-container p {
+  margin: auto 0;
+}
+
+.img-nav-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 65px;
+  min-width: 65px;
+}
+
+.light-icon-arrow-left,
+.light-icon-arrow-right {
+  font-size: 30px;
+}

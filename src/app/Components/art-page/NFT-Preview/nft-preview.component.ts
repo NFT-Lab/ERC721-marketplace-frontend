@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { IpfsService } from '../../../Services/IpfsService/ipfs.service';
 import { Router } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -27,6 +33,9 @@ export class NFTPreviewComponent implements OnInit {
   @Input('cid') cid!: string;
   @Input('metadataCid') metadataCid!: string;
   @Input('orientation') orientation!: string;
+  @Input('cat-image') isImage: boolean = false;
+  @Input('cat-music') isMusic: boolean = false;
+  @Input('cat-video') isVideo: boolean = false;
 
   constructor(private ipfs: IpfsService, private router: Router) {}
 
@@ -47,5 +56,17 @@ export class NFTPreviewComponent implements OnInit {
 
   reverse(orientation: string) {
     return orientation == 'right' ? 'left' : 'right';
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['cid']) this.cid = changes['cid'].currentValue;
+    if (changes['metadataCid'])
+      this.metadataCid = changes['metadataCid'].currentValue;
+    if (changes['orientation'])
+      this.orientation = changes['orientation'].currentValue;
+    if (changes['isImage']) this.isImage = changes['isImage'].currentValue;
+    if (changes['isMusic']) this.isMusic = changes['isMusic'].currentValue;
+    if (changes['isVideo']) this.isVideo = changes['isVideo'].currentValue;
+    this.ngOnInit();
   }
 }

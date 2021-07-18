@@ -14,7 +14,13 @@ import { Router } from '@angular/router';
 export class MyArtPageComponent implements OnInit {
   total: number = 0;
   private marketStore: NFTLabStoreMarketplaceVariant | undefined;
-  arts: { cid: string; metadataCid: string }[] = [];
+  arts: {
+    cid: string;
+    metadataCid: string;
+    image: boolean;
+    music: boolean;
+    video: boolean;
+  }[] = [];
   state: string = 'Loading';
   loading: boolean = true;
   constructor(

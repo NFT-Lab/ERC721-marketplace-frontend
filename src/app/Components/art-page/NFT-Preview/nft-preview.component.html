@@ -1,23 +1,35 @@
 <figure @entering [ngClass]="'card-container preview-container-' + orientation">
   <img
     #image
+    *ngIf="isImage"
     class="card preview"
     [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
     [routerLink]="'/art/' + cid"
   />
+  <div *ngIf="isMusic" [routerLink]="'/art/' + cid" class="icon card preview">
+    <i class="light-icon-music"></i>
+  </div>
+  <div *ngIf="isVideo" [routerLink]="'/art/' + cid" class="icon card preview">
+    <i class="light-icon-movie"></i>
+  </div>
   <div [ngClass]="'info ' + orientation">
     <div class="title-author">
       <h3>{{ title }}</h3>
       <p>{{ author }}</p>
     </div>
-    <p
-      class="wallet-addr-compressed"
-      [cdkCopyToClipboard]="wallet"
-      matTooltip="author wallet, click to copy"
-      matTooltipPosition="below"
-    >
-      {{ wallCompressed }}
-    </p>
+    <div class="categories">
+      <i *ngIf="isImage" class="icon light-icon-photo"></i>
+      <i *ngIf="isMusic" class="icon light-icon-music"></i>
+      <i *ngIf="isVideo" class="icon light-icon-movie"></i>
+      <p
+        class="wallet-addr-compressed"
+        [cdkCopyToClipboard]="wallet"
+        matTooltip="author wallet, click to copy"
+        matTooltipPosition="below"
+      >
+        {{ wallCompressed }}
+      </p>
+    </div>
   </div>
   <figcaption [ngClass]="'description ' + reverse(orientation)">
     <div>{{ description }}</div>

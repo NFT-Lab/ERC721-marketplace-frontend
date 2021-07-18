@@ -1,1 +1,161 @@
-<main class="content">Categories page</main>
+<main class="content">
+  <div class="container">
+    <div>
+      <h2>Images</h2>
+      <i class="icon light-icon-photo"></i>
+    </div>
+    <div class="art-container">
+      <!-- IMAGE CATEGORY -->
+      <div *ngIf="no_element.img; then noImageEl; else imagePreview"></div>
+      <ng-template #noImageEl>
+        <p>
+          There are currently no NFTs registered as <i>image</i> on this
+          contract
+        </p>
+      </ng-template>
+      <ng-template #imagePreview>
+        <div class="img-nav-container">
+          <div class="button-container">
+            <div class="spacer"></div>
+            <button
+              (click)="iterImage(-1)"
+              @entering
+              *ngIf="current.img > 0"
+              aria-label="previous image"
+              mat-icon-button
+            >
+              <i class="light-icon-arrow-left"></i>
+            </button>
+            <div class="spacer"></div>
+          </div>
+          <app-nft-preview
+            [cid]="img.cid"
+            [metadataCid]="img.metadataCid"
+            [cat-image]="img.image"
+            [cat-music]="img.music"
+            [cat-video]="img.video"
+          ></app-nft-preview>
+          <div class="button-container">
+            <div class="spacer"></div>
+            <button
+              (click)="iterImage(1)"
+              @entering
+              *ngIf="current.img < total.img - 1"
+              mat-icon-button
+              aria-label="previous image"
+            >
+              <i class="light-icon-arrow-right"></i>
+            </button>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <!-- MUSIC CATEGORY -->
+  <div class="container">
+    <div>
+      <h2>Music</h2>
+      <i class="icon light-icon-music"></i>
+    </div>
+    <div class="art-container">
+      <div *ngIf="no_element.music; then noMusicEl; else musicPreview"></div>
+      <ng-template #noMusicEl>
+        <p>
+          There are currently no NFTs registered as <i>music</i> on this
+          contract
+        </p>
+      </ng-template>
+      <ng-template #musicPreview>
+        <div class="img-nav-container">
+          <div class="button-container">
+            <div class="spacer"></div>
+            <button
+              (click)="iterMusic(-1)"
+              @entering
+              *ngIf="current.music > 0"
+              aria-label="previous image"
+              mat-icon-button
+            >
+              <i class="light-icon-arrow-left"></i>
+            </button>
+            <div class="spacer"></div>
+          </div>
+          <app-nft-preview
+            [cid]="music.cid"
+            [metadataCid]="music.metadataCid"
+            [cat-image]="music.image"
+            [cat-music]="music.music"
+            [cat-video]="music.video"
+          ></app-nft-preview>
+          <div class="button-container">
+            <div class="spacer"></div>
+            <button
+              (click)="iterMusic(1)"
+              @entering
+              *ngIf="current.music < total.music - 1"
+              mat-icon-button
+              aria-label="previous image"
+            >
+              <i class="light-icon-arrow-right"></i>
+            </button>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <!-- VIDEO CATEGORY -->
+  <div class="container">
+    <div>
+      <h2>Videos</h2>
+      <i class="icon light-icon-movie"></i>
+    </div>
+    <div class="art-container">
+      <div *ngIf="no_element.video; then noVideoEl; else videoPreview"></div>
+      <ng-template #noVideoEl>
+        <p>
+          There are currently no NFTs registered as <i>video</i> on this
+          contract
+        </p>
+      </ng-template>
+      <ng-template #videoPreview>
+        <div class="img-nav-container">
+          <div class="button-container">
+            <div class="spacer"></div>
+            <button
+              (click)="iterVideo(-1)"
+              @entering
+              *ngIf="current.video > 0"
+              aria-label="previous image"
+              mat-icon-button
+            >
+              <i class="light-icon-arrow-left"></i>
+            </button>
+            <div class="spacer"></div>
+          </div>
+          <app-nft-preview
+            [cid]="video.cid"
+            [metadataCid]="video.metadataCid"
+            [cat-image]="video.image"
+            [cat-music]="video.music"
+            [cat-video]="video.video"
+          ></app-nft-preview>
+          <div class="button-container">
+            <div class="spacer"></div>
+            <button
+              (click)="iterVideo(1)"
+              @entering
+              *ngIf="current.video < total.video - 1"
+              mat-icon-button
+              aria-label="previous image"
+            >
+              <i class="light-icon-arrow-right"></i>
+            </button>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</main>

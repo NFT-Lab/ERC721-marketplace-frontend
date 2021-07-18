@@ -1,3 +1,5 @@
+@import "~light-icons/dist/light-icon.css";
+
 @keyframes activate {
   from {
     color: currentColor;

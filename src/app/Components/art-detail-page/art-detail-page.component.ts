@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SellDialogComponent } from './sell-dialog/sell-dialog.component';
 import { BuyDialogComponent } from './buy-dialog/buy-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export interface SellData {
   price: number;
@@ -52,6 +53,19 @@ export class ArtDetailPageComponent implements OnInit {
   };
   sellable: boolean = false;
   cancellable: boolean = false;
+  nft: {
+    cid: string;
+    metadataCid: string;
+    image: boolean;
+    music: boolean;
+    video: boolean;
+  } = {
+    cid: '',
+    metadataCid: '',
+    image: false,
+    music: false,
+    video: false,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -95,6 +109,7 @@ export class ArtDetailPageComponent implements OnInit {
         store
           .getNFTByHash(params['cid'])
           .then((nft) => {
+            this.nft = nft;
             this.ipfs.getMetadata(nft.metadataCid).subscribe((metadata) => {
               this.metadata = metadata;
             });
@@ -123,7 +138,6 @@ export class ArtDetailPageComponent implements OnInit {
   }
 
   openBuyDialog() {
-    console.log(this._trade.price.toNumber());
     const dialogRef = this.dialog.open(BuyDialogComponent, {
       width: '500px',
       data: {
@@ -138,7 +152,7 @@ export class ArtDetailPageComponent implements OnInit {
   }
 
   openInNewWindow() {
-    window.open('https://cloudflare-ipfs.com/ipfs/' + this.cid, '_blank');
+    window.open('https://ipfs.io/ipfs/' + this.cid, '_blank');
   }
 
   buy(result: BuyData) {

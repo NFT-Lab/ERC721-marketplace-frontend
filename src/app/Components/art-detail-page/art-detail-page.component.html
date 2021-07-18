@@ -2,9 +2,24 @@
   <div class="container">
     <img
       class="card image"
+      *ngIf="nft.image"
       [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
       (click)="openInNewWindow()"
     />
+    <div
+      *ngIf="nft.music && !nft.image && !nft.video"
+      class="icon card image"
+      (click)="openInNewWindow()"
+    >
+      <i class="light-icon-music"></i>
+    </div>
+    <div
+      *ngIf="nft.video && !nft.music && !nft.image"
+      class="icon card image"
+      (click)="openInNewWindow()"
+    >
+      <i class="light-icon-movie"></i>
+    </div>
     <div @entering class="info">
       <h3 class="title">{{ metadata?.title }}</h3>
       <p class="author">by {{ metadata?.author }}</p>

@@ -31,6 +31,11 @@
   padding: 0;
   width: 200px;
   height: 200px;
+  object-fit: cover;
+}
+
+.icon {
+  font-size: 24px;
 }
 
 .info {

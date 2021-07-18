@@ -30,7 +30,7 @@
           [defaultValue]="this.walletAddress"
         />
       </mat-form-field>
-      <app-chip-list formControlName="categories"></app-chip-list>
+      <app-chip-list #chiplist formControlName="categories"></app-chip-list>
       <div class="card-container">
         <div (click)="mint()" class="card card-small">{{ mintMessage }}</div>
       </div>

@@ -12,7 +12,13 @@ import { WalletProviderService } from '../../Services/WalletProviderService/wall
 export class ArtPageComponent implements OnInit {
   total: number = 0;
   private marketStore: NFTLabStoreMarketplaceVariant | undefined;
-  arts: { cid: string; metadataCid: string }[] = [];
+  arts: {
+    cid: string;
+    metadataCid: string;
+    image: boolean;
+    music: boolean;
+    video: boolean;
+  }[] = [];
   state: string = 'Loading';
   loading: boolean = true;
 
