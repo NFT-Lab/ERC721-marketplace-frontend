@@ -36,20 +36,14 @@ export class MyArtPageComponent implements OnInit {
     this.marketStore = store;
     const account = await (await this.providerService.signer()).getAddress();
     if (account) {
-      console.log(account);
       const supply = await store.balanceOf(account);
       this.total = supply.toNumber();
       range(0, supply.toNumber()).forEach((next) => {
         store.tokenOfOwnerByIndex(account, next).then((token) => {
-          store
-            .getNFTById(token)
-            .then((nft) => {
-              this.arts.push(nft);
-              this.loading = false;
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+          store.getNFTById(token).then((nft) => {
+            this.arts.push(nft);
+            this.loading = false;
+          });
         });
       });
       if (this.total == 0) {

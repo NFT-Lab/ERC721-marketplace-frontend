@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
 import { IpfsService, Metadata } from '../../Services/IpfsService/ipfs.service';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { BigNumber } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SellDialogComponent } from './sell-dialog/sell-dialog.component';
@@ -64,6 +64,7 @@ export class ArtDetailPageComponent implements OnInit {
     music: false,
     video: false,
   };
+  displayPrice: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -74,11 +75,7 @@ export class ArtDetailPageComponent implements OnInit {
     private ngZone: NgZone,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar
-  ) {
-    provider
-      .provider()
-      .then((provider) => provider.on('accountsChanged', this.reloadPage));
-  }
+  ) {}
 
   reloadPage = () => {
     const url = this.router.url;
@@ -90,13 +87,18 @@ export class ArtDetailPageComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(async (params) => {
       this.cid = params['cid'];
-      let account = '';
+      let account = (
+        await (await this.provider.signer()).getAddress()
+      ).toLowerCase();
       this.market
         .isSellable(params['cid'], account)
         .then((isSellable) => (this.sellable = isSellable));
-      this.market
-        .isBuyable(params['cid'])
-        .then((trade) => (this._trade = trade ?? this._trade));
+      this.market.isBuyable(params['cid']).then((trade) => {
+        this._trade = trade ?? this._trade;
+        this.displayPrice = ethers.utils.formatEther(
+          this._trade.price.toString()
+        );
+      });
       this.market
         .isCancellable(params['cid'], account)
         .then((cancellable) => (this.cancellable = cancellable));
@@ -136,8 +138,8 @@ export class ArtDetailPageComponent implements OnInit {
     const dialogRef = this.dialog.open(BuyDialogComponent, {
       width: '500px',
       data: {
-        price: this._trade.price.toNumber(),
-        tip: 1,
+        price: Number.parseFloat(ethers.utils.formatEther(this._trade.price)),
+        tip: 10000,
       },
     });
 
@@ -158,7 +160,7 @@ export class ArtDetailPageComponent implements OnInit {
         { duration: 3000, panelClass: ['snackbar'] }
       );
       this.market
-        .buy(this.cid, result.price + result.tip * Math.pow(10, -9))
+        .buy(this.cid, result.price, result.tip)
         .then((transaction) => {
           this._snackBar.open('Transaction pending', 'Dismiss', {
             panelClass: ['snackbar'],

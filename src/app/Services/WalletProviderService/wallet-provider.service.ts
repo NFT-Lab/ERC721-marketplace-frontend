@@ -13,7 +13,6 @@ export class WalletProviderService implements CanActivate {
     this.provider().then((provider) =>
       provider.listAccounts().then((accounts: string[]) => {
         this.active = accounts.length > 0;
-        console.log(accounts.length > 0);
       })
     );
 

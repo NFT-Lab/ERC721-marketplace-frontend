@@ -5,7 +5,7 @@ import NFTLS_INTERFACE from 'erc721nftlab/artifacts/contracts/NFTLabStoreMarketp
 import { environment } from '../../../environments/environment';
 import { ETHMarketplace } from 'erc721nftlab/typechain/ETHMarketplace';
 import { NFTLabStoreMarketplaceVariant } from 'erc721nftlab/typechain/NFTLabStoreMarketplaceVariant';
-import { BigNumber, ethers } from 'ethers';
+import { BigNumber, ContractTransaction, ethers } from 'ethers';
 
 @Injectable()
 export class MarketplaceService {
@@ -68,23 +68,33 @@ export class MarketplaceService {
     const tradeID = await marketplace.getTradeOfNft(tokenId);
     if (tradeID.eq(BigNumber.from(0))) {
       const owner = await store.ownerOf(tokenId);
-      return account == owner.toLowerCase();
+      return account.toLowerCase() == owner.toLowerCase();
     }
     return false;
   }
 
   async buy(
     cid: string,
-    price: number
-  ): Promise<ethers.ContractTransaction | undefined> {
+    price: number,
+    tip: number
+  ): Promise<ContractTransaction | undefined> {
     const marketplace = await this.getEthMarketplace();
     const store = await this.getMarketplaceStore();
     const tokenId = await store.getTokenId(cid);
     const tradeID = await marketplace.getTradeOfNft(tokenId);
     const signer = await this.walletProvider.signer();
+    console.log(price);
+    console.log(tip);
+    console.log(
+      ethers.utils
+        .parseEther(price.toString())
+        .add(ethers.utils.parseUnits(tip.toString(), 'gwei'))
+    );
     if (signer)
       return marketplace.connect(signer).executeTrade(tradeID, {
-        value: ethers.utils.parseEther('' + (price + 0.1)) /* tip */,
+        value: ethers.utils
+          .parseEther(price.toString())
+          .add(ethers.utils.parseUnits(tip.toString(), 'gwei')),
       });
     return undefined;
   }
@@ -97,7 +107,10 @@ export class MarketplaceService {
     const store = await this.getMarketplaceStore();
     const tokenId = await store.getTokenId(cid);
     const signer = await this.walletProvider.signer();
-    if (signer) return marketplace.connect(signer).openTrade(tokenId, price);
+    if (signer)
+      return marketplace
+        .connect(signer)
+        .openTrade(tokenId, ethers.utils.parseEther(price.toString()));
     return undefined;
   }
 

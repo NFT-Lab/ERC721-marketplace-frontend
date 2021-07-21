@@ -38,14 +38,7 @@ export class ForgePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private marketplace: MarketplaceService,
     private _snackBar: MatSnackBar
-  ) {
-    this.providerService.provider().then((provider) => {
-      provider.on('accountsChanged', (accounts: string[]) => {
-        this.mintForm.setValue({ ...this.mintForm.value, wallet: accounts[0] });
-        console.log('called with ', accounts);
-      });
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.providerService.signer().then((signer) =>

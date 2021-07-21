@@ -9,13 +9,9 @@ export class PinataInterfaceService {
   readonly baseURL: string = 'https://api.pinata.cloud/';
 
   constructor(private http: HttpClient) {
-    http
-      .get(this.baseURL + 'data/testAuthentication', {
-        headers: { Authorization: 'Bearer ' + environment.pinataJWT },
-      })
-      .subscribe((response) => {
-        console.log(response);
-      });
+    http.get(this.baseURL + 'data/testAuthentication', {
+      headers: { Authorization: 'Bearer ' + environment.pinataJWT },
+    });
   }
 
   addFile(
