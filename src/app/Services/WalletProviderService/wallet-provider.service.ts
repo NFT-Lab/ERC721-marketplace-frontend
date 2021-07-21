@@ -11,7 +11,10 @@ export class WalletProviderService implements CanActivate {
 
   constructor(private router: Router, private ngZone: NgZone) {
     this.provider().then((provider) =>
-      provider.listAccounts().then(() => (this.active = true))
+      provider.listAccounts().then((accounts: string[]) => {
+        this.active = accounts.length > 0;
+        console.log(accounts.length > 0);
+      })
     );
 
     if ((window as any).ethereum)

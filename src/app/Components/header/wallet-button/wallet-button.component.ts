@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header.component';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { WalletProviderService } from '../../../Services/WalletProviderService/wallet-provider.service';
 
 @Component({
@@ -24,7 +24,11 @@ export class WalletButtonComponent implements OnInit {
       this.providerService
         .provider()
         .then((provider) =>
-          provider.listAccounts().then(() => (this.connected = true))
+          provider
+            .listAccounts()
+            .then(
+              (accounts: string[]) => (this.connected = accounts.length > 0)
+            )
         );
     } else {
       this.message = 'Install metamask';
