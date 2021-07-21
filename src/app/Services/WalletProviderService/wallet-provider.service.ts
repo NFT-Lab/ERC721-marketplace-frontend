@@ -1,47 +1,56 @@
 import { Injectable, NgZone } from '@angular/core';
 import { ethers } from 'ethers';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable()
-export class WalletProviderService {
-  private _wallet: any | undefined;
+export class WalletProviderService implements CanActivate {
+  private active: boolean = false;
+
   private _signer: ethers.Signer | undefined;
   private _provider: ethers.providers.Web3Provider | undefined;
 
-  constructor() {
-    this._wallet = (window as any).ethereum;
+  constructor(private router: Router, private ngZone: NgZone) {
+    this.provider().then((provider) =>
+      provider.listAccounts().then(() => (this.active = true))
+    );
+
+    if ((window as any).ethereum)
+      (window as any).ethereum.on('accountsChanged', () => {
+        const url = router.url;
+        if (!url.match('/art$'))
+          router
+            .navigate(['/home'], { skipLocationChange: true })
+            .then(() => ngZone.run(() => router.navigate([url])));
+      });
   }
 
-  get wallet() {
-    if (!this._wallet) {
-      if ((window as any).ethereum != undefined) {
-        this._wallet = (window as any).ethereum;
-      } else {
-        throw new Error('Provider not available because of no signers');
-      }
-    }
-    return this._wallet;
-  }
-
-  get signer() {
+  async signer() {
     if (this._signer) {
       return this._signer;
     } else {
-      return this.provider?.getSigner();
+      return (await this.provider()).getSigner();
     }
   }
 
-  get provider() {
-    if (!this._provider && this._wallet) {
-      this._provider = new ethers.providers.Web3Provider(this._wallet);
+  async provider(): Promise<ethers.providers.Web3Provider> {
+    if (!this._provider) {
+      this._provider = new ethers.providers.Web3Provider(
+        (window as any).ethereum
+      );
     }
     return this._provider;
+  }
+
+  requestAccounts() {
+    return this.provider()
+      .then((provider) => provider.send('eth_requestAccounts', []))
+      .then((accounts) => {
+        this.active = true;
+        return accounts;
+      });
+  }
+
+  canActivate(): boolean {
+    return this.active;
   }
 }

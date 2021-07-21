@@ -17,7 +17,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]),
   ],
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent {
   title_all: string = 'NFTLab marketplace';
   title: string = '';
   display_functionalities: boolean = false;
@@ -31,8 +31,6 @@ export class LandingPageComponent implements OnInit {
   constructor() {
     this.self_calling(this);
   }
-
-  ngOnInit(): void {}
 
   self_calling(that: LandingPageComponent) {
     const total_len = that.title_all.length;

@@ -25,6 +25,9 @@
       <p class="author">by {{ metadata?.author }}</p>
       <p class="description">{{ metadata?.description }}</p>
       <div class="spacer"></div>
+      <div *ngIf="_trade.price.toNumber() > 0" class="price">
+        <p>price {{ _trade.price }} <i class="fab fa-ethereum"></i></p>
+      </div>
       <div class="address">
         minter
         <span class="wallet-addr-compressed">{{ metadata?.wallet }}</span>

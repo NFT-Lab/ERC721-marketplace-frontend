@@ -28,7 +28,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
     },
   ],
 })
-export class ChipListComponent implements OnInit, ControlValueAccessor {
+export class ChipListComponent implements ControlValueAccessor {
   categories: string[] = [];
   selectable: boolean = true;
   removable: boolean = true;
@@ -55,8 +55,6 @@ export class ChipListComponent implements OnInit, ControlValueAccessor {
     this.callback = fn;
   }
   registerOnTouched(fn: any): void {}
-
-  ngOnInit(): void {}
 
   remove(category: string) {
     const index = this.categories.indexOf(category);

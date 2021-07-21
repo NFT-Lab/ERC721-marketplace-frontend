@@ -5,8 +5,8 @@ import { CategoriesPageComponent } from './Components/categories-page/categories
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { ForgePageComponent } from './Components/forge-page/forge-page.component';
 import { ArtDetailPageComponent } from './Components/art-detail-page/art-detail-page.component';
-import { WalletService } from './Services/WalletService/wallet.service';
 import { MyArtPageComponent } from './Components/my-art-page/my-art-page.component';
+import { WalletProviderService } from './Services/WalletProviderService/wallet-provider.service';
 
 const routes: Routes = [
   { path: 'art', component: ArtPageComponent, data: { animation: 'opacity' } },
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'mint',
     component: ForgePageComponent,
-    canActivate: [WalletService],
+    canActivate: [WalletProviderService],
     data: { animation: 'opacity' },
   },
   {
@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: 'my-art',
     component: MyArtPageComponent,
-    canActivate: [WalletService],
+    canActivate: [WalletProviderService],
   },
 ];
 

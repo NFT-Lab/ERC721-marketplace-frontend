@@ -10,3 +10,7 @@ app-nft-preview:not(:first-child) {
 .item {
   height: 30px;
 }
+
+.state {
+  margin-bottom: 30px;
+}

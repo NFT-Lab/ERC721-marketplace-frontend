@@ -1,6 +1,7 @@
 import {
   Component,
   Input,
+  OnChanges,
   OnInit,
   SimpleChange,
   SimpleChanges,
@@ -23,19 +24,19 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ]),
   ],
 })
-export class NFTPreviewComponent implements OnInit {
+export class NFTPreviewComponent implements OnInit, OnChanges {
   title: string = '';
   author: string = '';
   description: string = '';
   wallet: string = '';
   wallCompressed: string = '';
 
-  @Input('cid') cid!: string;
-  @Input('metadataCid') metadataCid!: string;
-  @Input('orientation') orientation!: string;
-  @Input('cat-image') isImage: boolean = false;
-  @Input('cat-music') isMusic: boolean = false;
-  @Input('cat-video') isVideo: boolean = false;
+  @Input() cid!: string;
+  @Input() metadataCid!: string;
+  @Input() orientation!: string;
+  @Input() isImage: boolean = false;
+  @Input() isMusic: boolean = false;
+  @Input() isVideo: boolean = false;
 
   constructor(private ipfs: IpfsService, private router: Router) {}
 

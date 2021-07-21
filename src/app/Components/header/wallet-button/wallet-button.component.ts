@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WalletService } from '../../../Services/WalletService/wallet.service';
 import { HeaderComponent } from '../header.component';
-import { Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
+import { WalletProviderService } from '../../../Services/WalletProviderService/wallet-provider.service';
 
 @Component({
   selector: 'app-wallet-button',
@@ -10,36 +10,35 @@ import { Router } from '@angular/router';
 })
 export class WalletButtonComponent implements OnInit {
   public message: string = '';
-  account: String | undefined;
+  connected: boolean = false;
 
   constructor(
-    private walletService: WalletService,
     private header: HeaderComponent,
-    private router: Router
+    private router: Router,
+    private providerService: WalletProviderService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    if (await this.walletService.isConnected()) {
+    if ((window as any).ethereum) {
       this.message = 'Connect wallet';
+      this.providerService
+        .provider()
+        .then((provider) =>
+          provider.listAccounts().then(() => (this.connected = true))
+        );
     } else {
       this.message = 'Install metamask';
     }
   }
 
-  accountsAvailable(): boolean {
-    return this.account != null;
-  }
-
   async requestAccounts() {
-    if (!(await this.walletService.isConnected()))
+    if (!(window as any).ethereum)
       window.open('https://metamask.io/download.html', '_blank');
-    else
-      this.walletService
+    else {
+      this.providerService
         .requestAccounts()
-        .then((accounts: string[] | undefined) => {
-          this.account = accounts ? accounts[0] : undefined;
-          if (this.account) this.router.navigate([this.router.url]);
-        });
+        .then(() => (this.connected = true));
+    }
   }
 
   openAccountsOptions() {

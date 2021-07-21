@@ -23,12 +23,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Author wallet</mat-label>
-        <input
-          matInput
-          formControlName="wallet"
-          [required]="true"
-          [defaultValue]="this.walletAddress"
-        />
+        <input matInput formControlName="wallet" [required]="true" />
       </mat-form-field>
       <app-chip-list #chiplist formControlName="categories"></app-chip-list>
       <div class="card-container">

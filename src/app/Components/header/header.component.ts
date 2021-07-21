@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WalletService } from '../../Services/WalletService/wallet.service';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CanActivate } from '@angular/router';
 import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
 
 @Component({
@@ -18,21 +16,12 @@ import { WalletProviderService } from '../../Services/WalletProviderService/wall
     ]),
   ],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   accountOptions: boolean = false;
-  constructor(
-    private walletService: WalletService,
-    private provider: WalletProviderService
-  ) {}
-
-  ngOnInit(): void {}
+  constructor() {}
 
   public isActive(path: string) {
     return location.pathname.match(path) ? 'active' : '';
-  }
-
-  public canForge() {
-    return this.walletService.hasAccounts();
   }
 
   public toggleOptions() {

@@ -35,7 +35,6 @@ import { SellDialogComponent } from './Components/art-detail-page/sell-dialog/se
 import { BuyDialogComponent } from './Components/art-detail-page/buy-dialog/buy-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { WalletService } from './Services/WalletService/wallet.service';
 import { MarketplaceService } from './Services/MarketplaceService/marketplace.service';
 
 @NgModule({
@@ -78,7 +77,7 @@ import { MarketplaceService } from './Services/MarketplaceService/marketplace.se
     MatDialogModule,
     MatButtonModule,
   ],
-  providers: [WalletProviderService, WalletService, MarketplaceService],
+  providers: [WalletProviderService, MarketplaceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -4,13 +4,11 @@ import { MarketplaceService } from '../../Services/MarketplaceService/marketplac
 import { IpfsService, Metadata } from '../../Services/IpfsService/ipfs.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { BigNumber } from 'ethers';
-import { WalletService } from '../../Services/WalletService/wallet.service';
 import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SellDialogComponent } from './sell-dialog/sell-dialog.component';
 import { BuyDialogComponent } from './buy-dialog/buy-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 export interface SellData {
   price: number;
@@ -71,14 +69,15 @@ export class ArtDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private market: MarketplaceService,
     private ipfs: IpfsService,
-    private wallet: WalletService,
     private provider: WalletProviderService,
     private router: Router,
     private ngZone: NgZone,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {
-    provider.wallet.on('accountsChanged', this.reloadPage);
+    provider
+      .provider()
+      .then((provider) => provider.on('accountsChanged', this.reloadPage));
   }
 
   reloadPage = () => {
@@ -92,10 +91,6 @@ export class ArtDetailPageComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       this.cid = params['cid'];
       let account = '';
-      if (this.wallet.isConnected()) {
-        const accounts = await this.wallet.requestAccounts();
-        if (accounts) account = accounts[0];
-      }
       this.market
         .isSellable(params['cid'], account)
         .then((isSellable) => (this.sellable = isSellable));

@@ -7,13 +7,11 @@ import { SellData } from '../art-detail-page.component';
   templateUrl: './sell-dialog.component.html',
   styleUrls: ['./sell-dialog.component.css'],
 })
-export class SellDialogComponent implements OnInit {
+export class SellDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<SellDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SellData
   ) {}
-
-  ngOnInit(): void {}
 
   onNoClick(): void {
     this.dialogRef.close();

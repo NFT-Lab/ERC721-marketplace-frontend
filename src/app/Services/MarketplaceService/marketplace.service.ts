@@ -19,7 +19,7 @@ export class MarketplaceService {
       this._ETHMarketplace = new ethers.Contract(
         environment.contractAddress,
         ETHM_INTERFACE['abi'],
-        this.walletProvider.provider
+        await this.walletProvider.provider()
       ) as ETHMarketplace;
     }
     return this._ETHMarketplace;
@@ -31,7 +31,7 @@ export class MarketplaceService {
       this._marketplaceStore = new ethers.Contract(
         addr,
         NFTLS_INTERFACE['abi'],
-        this.walletProvider.provider
+        await this.walletProvider.provider()
       ) as NFTLabStoreMarketplaceVariant;
     }
     return this._marketplaceStore;
@@ -81,12 +81,11 @@ export class MarketplaceService {
     const store = await this.getMarketplaceStore();
     const tokenId = await store.getTokenId(cid);
     const tradeID = await marketplace.getTradeOfNft(tokenId);
-    if (this.walletProvider.provider)
-      return marketplace
-        .connect(this.walletProvider.provider.getSigner())
-        .executeTrade(tradeID, {
-          value: ethers.utils.parseEther('' + (price + 0.1)) /* tip */,
-        });
+    const signer = await this.walletProvider.signer();
+    if (signer)
+      return marketplace.connect(signer).executeTrade(tradeID, {
+        value: ethers.utils.parseEther('' + (price + 0.1)) /* tip */,
+      });
     return undefined;
   }
 
@@ -97,10 +96,8 @@ export class MarketplaceService {
     const marketplace = await this.getEthMarketplace();
     const store = await this.getMarketplaceStore();
     const tokenId = await store.getTokenId(cid);
-    if (this.walletProvider.provider)
-      return marketplace
-        .connect(this.walletProvider.provider.getSigner())
-        .openTrade(tokenId, price);
+    const signer = await this.walletProvider.signer();
+    if (signer) return marketplace.connect(signer).openTrade(tokenId, price);
     return undefined;
   }
 
@@ -109,10 +106,8 @@ export class MarketplaceService {
     const store = await this.getMarketplaceStore();
     const tokenId = await store.getTokenId(cid);
     const tradeID = await marketplace.getTradeOfNft(tokenId);
-    if (this.walletProvider.provider)
-      return marketplace
-        .connect(this.walletProvider.provider.getSigner())
-        .cancelTrade(tradeID);
+    const signer = await this.walletProvider.signer();
+    if (signer) return marketplace.connect(signer).cancelTrade(tradeID);
     return undefined;
   }
 }

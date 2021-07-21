@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { WalletService } from '../../Services/WalletService/wallet.service';
 import { IpfsService } from '../../Services/IpfsService/ipfs.service';
 import { MarketplaceService } from '../../Services/MarketplaceService/marketplace.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,8 +19,6 @@ export interface IPFSResponse {
   styleUrls: ['./forge-page.component.css'],
 })
 export class ForgePageComponent implements OnInit {
-  walletAddress: string = '';
-
   mintForm: FormGroup = this.formBuilder.group({
     file: File,
     title: '',
@@ -36,26 +33,33 @@ export class ForgePageComponent implements OnInit {
   nft: { metadataHash: string; cid: string } = { cid: '', metadataHash: '' };
 
   constructor(
-    private walletService: WalletService,
     private providerService: WalletProviderService,
     private ipfsService: IpfsService,
     private formBuilder: FormBuilder,
     private marketplace: MarketplaceService,
     private _snackBar: MatSnackBar
   ) {
-    if (this.walletService.getCurrentAccount())
-      this.walletAddress = this.walletService.getCurrentAccount() ?? '';
+    this.providerService.provider().then((provider) => {
+      provider.on('accountsChanged', (accounts: string[]) => {
+        this.mintForm.setValue({ ...this.mintForm.value, wallet: accounts[0] });
+        console.log('called with ', accounts);
+      });
+    });
   }
 
   ngOnInit(): void {
-    this.mintForm.setValue({
-      file: File,
-      title: '',
-      description: '',
-      author: '',
-      wallet: this.walletAddress,
-      categories: '',
-    });
+    this.providerService.signer().then((signer) =>
+      signer.getAddress().then((address) =>
+        this.mintForm.setValue({
+          file: File,
+          title: '',
+          description: '',
+          author: '',
+          wallet: address,
+          categories: '',
+        })
+      )
+    );
   }
 
   mint() {
@@ -92,10 +96,10 @@ export class ForgePageComponent implements OnInit {
                   duration: 3000,
                   panelClass: ['snackbar'],
                 });
-                if (this.providerService.provider)
+                this.providerService.signer().then(async (signer) =>
                   store
-                    .connect(this.providerService.provider.getSigner())
-                    .mint(this.walletAddress, {
+                    .connect(signer)
+                    .mint(await signer.getAddress(), {
                       cid: art_res.IpfsHash,
                       metadataCid: meta_res.IpfsHash,
                       image: this.chiplist.categories.includes('Image'),
@@ -129,7 +133,8 @@ export class ForgePageComponent implements OnInit {
                           panelClass: ['snackbar'],
                         }
                       );
-                    });
+                    })
+                );
               });
             });
         });

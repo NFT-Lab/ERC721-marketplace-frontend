@@ -19,9 +19,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-        
+
     - name: Install dependencies
       run: npm install
 
     - name: Verify code formatting
       run: npm run pretticheck
+
+    - name: Verify code linting
+      run: npm run lint
