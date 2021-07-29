@@ -1,37 +1,85 @@
 <main class="content">
   <div *ngIf="minted; then thenBlock; else elseBlock"></div>
   <ng-template #elseBlock>
+    <div class="info">
+      <h3>What you should know about minting</h3>
+      <ul>
+        <li>
+          <b>Your files will be saved to IPFS</b>. This means that it will be
+          publicly available, but trough the blockchain only you will be the
+          proprietary of your NFT!
+        </li>
+        <li>
+          <b>This operation will have a cost</b>. This is because
+          <i>registering</i> is an operation that alters the state of ethereum,
+          and in order to do that, you have to pay.
+        </li>
+        <li>
+          <b>The NFT will be given to you, not to the artist wallet</b>. the
+          artist wallet is persisted trough metadata in IPFS, but the NFT will
+          be yours as long as you dont sell it or change the behaviour of this
+          frontend application.
+        </li>
+      </ul>
+    </div>
     <form [formGroup]="mintForm" (ngSubmit)="mint()">
       <mat-form-field appearance="outline">
         <ngx-mat-file-input
           formControlName="file"
           [required]="true"
+          [attr.aria-label]="'File to publish as nft'"
         ></ngx-mat-file-input>
         <mat-icon matSuffix>clip</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Title</mat-label>
-        <input matInput formControlName="title" [required]="true" />
+        <input
+          matInput
+          formControlName="title"
+          [required]="true"
+          [attr.aria-label]="'Title of the NFT'"
+        />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
+        <textarea
+          matInput
+          formControlName="description"
+          [attr.aria-label]="'Describe here your art piece'"
+        ></textarea>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Author name</mat-label>
-        <input matInput formControlName="author" [required]="true" />
+        <input
+          matInput
+          formControlName="author"
+          [required]="true"
+          [attr.aria-label]="'Name of the author'"
+        />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Author wallet</mat-label>
-        <input matInput formControlName="wallet" [required]="true" />
+        <input
+          matInput
+          formControlName="wallet"
+          [required]="true"
+          [attr.aria-label]="'Wallet of the author'"
+        />
       </mat-form-field>
-      <app-chip-list #chiplist formControlName="categories"></app-chip-list>
+      <app-chip-list
+        #chiplist
+        formControlName="categories"
+        [attr.aria-label]="
+          'Every NFT must belong to at least one category between image (default), music and video'
+        "
+      ></app-chip-list>
       <div class="card-container">
         <button
           id="minting-button"
           type="submit"
           (click)="mint()"
           class="card card-small"
+          [attr.aria-label]="'Mint the NFT'"
         >
           {{ mintMessage }}
         </button>
@@ -44,22 +92,22 @@
       [metadataCid]="nft.metadataHash"
     ></app-nft-preview>
     <div class="card-container">
-      <div
+      <button
         class="card card-small"
         [cdkCopyToClipboard]="this.nft.cid"
         matTooltip="click to copy"
         matTooltipPosition="below"
       >
         contentID
-      </div>
-      <div
+      </button>
+      <button
         class="card card-small"
         [cdkCopyToClipboard]="this.nft.metadataHash"
         matTooltip="click to copy"
         matTooltipPosition="below"
       >
         metadata
-      </div>
+      </button>
     </div>
   </ng-template>
 </main>

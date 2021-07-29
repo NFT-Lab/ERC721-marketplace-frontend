@@ -60,6 +60,8 @@ export class NFTPreviewComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.cid = '';
+    this.metadataCid = '';
     if (changes['cid']) this.cid = changes['cid'].currentValue;
     if (changes['metadataCid'])
       this.metadataCid = changes['metadataCid'].currentValue;

@@ -16,7 +16,7 @@ header {
   cursor: pointer;
   transition: 0.1s ease-in;
   animation-name: deactivate;
-  color: lightgrey;
+  color: darkgrey;
 }
 
 .header-link:hover {

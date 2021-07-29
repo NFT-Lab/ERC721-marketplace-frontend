@@ -5,6 +5,15 @@
       *ngIf="isImage"
       class="card preview"
       [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
+      [attr.aria-labelledby]="'description' + cid"
+      [alt]="
+        'preview of the artpiece ' +
+        cid +
+        ', categorized as ' +
+        (isImage ? 'image, ' : '') +
+        (isVideo ? 'video, ' : '') +
+        (isMusic ? 'music ' : '')
+      "
     />
   </a>
   <a *ngIf="isMusic" [routerLink]="'/art/' + cid" class="icon card preview">
@@ -33,6 +42,6 @@
     </div>
   </div>
   <figcaption [ngClass]="'description ' + reverse(orientation)">
-    <div>{{ description }}</div>
+    <div [id]="'description' + cid">{{ description }}</div>
   </figcaption>
 </figure>

@@ -2,6 +2,38 @@
   width: 100%;
 }
 
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  font-weight: 30;
+  width: 70%;
+  margin: auto;
+}
+
+ul li:not(:last-child) {
+  margin-bottom: 40px;
+}
+
+ul li:first-child {
+  margin-top: 30px;
+}
+
+ul li:last-child {
+  margin-bottom: 30px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info h3 {
+  margin: auto;
+}
+
 #minting-button {
   height: 40px;
 }

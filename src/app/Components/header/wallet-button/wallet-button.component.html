@@ -2,6 +2,7 @@
   <button
     [ngClass]="'card ' + (connected ? 'card-mini active' : 'card-small')"
     (click)="connected ? openAccountsOptions() : requestAccounts()"
+    [attr.aria-label]="connected ? 'Connect to wallet' : 'wallet connected'"
   >
     <div *ngIf="connected; then walleticon; else connectblock"></div>
     <ng-template #walleticon>

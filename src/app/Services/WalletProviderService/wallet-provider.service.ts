@@ -52,7 +52,10 @@ export class WalletProviderService implements CanActivate {
       });
   }
 
-  canActivate(): boolean {
-    return this.active;
+  async canActivate() {
+    if (this.active) return true;
+    const provider = await this.provider();
+    const accounts = await provider.listAccounts();
+    return accounts.length > 0;
   }
 }

@@ -1,10 +1,23 @@
 <main class="content card-container">
   <div class="container">
-    <a [href]="'https://gateway.pinata.cloud/ipfs/' + cid" target="_blank">
+    <a
+      [href]="'https://gateway.pinata.cloud/ipfs/' + cid"
+      target="_blank"
+      rel="noreferrer"
+    >
       <img
         class="card image"
         *ngIf="nft.image"
         [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
+        [alt]="
+          'preview of the artpiece ' +
+          cid +
+          ', categorized as ' +
+          (nft.image ? 'image, ' : '') +
+          (nft.video ? 'video, ' : '') +
+          (nft.video ? 'music ' : '')
+        "
+        aria-labelledby="description"
       />
     </a>
     <a
@@ -12,6 +25,7 @@
       class="icon card image"
       [href]="'https://gateway.pinata.cloud/ipfs/' + cid"
       target="_blank"
+      rel="noreferrer"
     >
       <i class="light-icon-music"></i>
     </a>
@@ -20,13 +34,14 @@
       class="icon card image"
       [href]="'https://gateway.pinata.cloud/ipfs/' + cid"
       target="_blank"
+      rel="noreferrer"
     >
       <i class="light-icon-movie"></i>
     </a>
     <div @entering class="info">
       <h3 class="title">{{ metadata?.title }}</h3>
       <p class="author">by {{ metadata?.author }}</p>
-      <p class="description">{{ metadata?.description }}</p>
+      <p id="description" class="description">{{ metadata?.description }}</p>
       <div class="spacer"></div>
       <div *ngIf="_trade.price.gt(0)" class="price">
         <div class="address">
