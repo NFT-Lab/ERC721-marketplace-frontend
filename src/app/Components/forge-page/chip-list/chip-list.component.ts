@@ -29,7 +29,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   ],
 })
 export class ChipListComponent implements ControlValueAccessor {
-  categories: string[] = [];
+  categories: string[] = ['Image'];
   selectable: boolean = true;
   removable: boolean = true;
   categoryCtrl: FormControl = new FormControl();

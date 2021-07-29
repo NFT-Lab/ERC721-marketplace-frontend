@@ -1,15 +1,21 @@
 <main class="content">
   <div *ngIf="loading; then elseBlock; else thenBlock"></div>
   <ng-template #thenBlock>
-    <app-nft-preview
-      *ngFor="let art of arts; let even = even"
-      [cid]="art.cid"
-      [metadataCid]="art.metadataCid"
-      [orientation]="even ? 'left' : 'right'"
-      [isImage]="art.image"
-      [isMusic]="art.music"
-      [isVideo]="art.video"
-    ></app-nft-preview>
+    <div *ngIf="arts.length > 0; then artOkBlock; else noArtBlock"></div>
+    <ng-template #artOkBlock>
+      <app-nft-preview
+        *ngFor="let art of arts; let even = even"
+        [cid]="art.cid"
+        [metadataCid]="art.metadataCid"
+        [orientation]="even ? 'left' : 'right'"
+        [isImage]="art.image"
+        [isMusic]="art.music"
+        [isVideo]="art.video"
+      ></app-nft-preview>
+    </ng-template>
+    <ng-template #noArtBlock>
+      <p>There are currently no NFTs registered on this marketplace</p>
+    </ng-template>
   </ng-template>
   <ng-template #elseBlock>
     <div class="state">{{ this.state }}</div>
