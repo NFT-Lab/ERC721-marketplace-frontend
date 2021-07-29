@@ -27,7 +27,14 @@
       </mat-form-field>
       <app-chip-list #chiplist formControlName="categories"></app-chip-list>
       <div class="card-container">
-        <div (click)="mint()" class="card card-small">{{ mintMessage }}</div>
+        <button
+          id="minting-button"
+          type="submit"
+          (click)="mint()"
+          class="card card-small"
+        >
+          {{ mintMessage }}
+        </button>
       </div>
     </form>
   </ng-template>

@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+#minting-button {
+  height: 40px;
+}
+
 textarea {
   min-height: 200px;
 }

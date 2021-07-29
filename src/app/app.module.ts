@@ -36,6 +36,7 @@ import { BuyDialogComponent } from './Components/art-detail-page/buy-dialog/buy-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MarketplaceService } from './Services/MarketplaceService/marketplace.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MarketplaceService } from './Services/MarketplaceService/marketplace.se
     MatProgressSpinnerModule,
     MatDialogModule,
     MatButtonModule,
+    FontAwesomeModule,
   ],
   providers: [WalletProviderService, MarketplaceService],
   bootstrap: [AppComponent],

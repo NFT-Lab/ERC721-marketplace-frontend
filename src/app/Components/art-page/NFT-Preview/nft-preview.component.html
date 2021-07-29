@@ -1,17 +1,18 @@
 <figure @entering [ngClass]="'card-container preview-container-' + orientation">
-  <img
-    #image
-    *ngIf="isImage"
-    class="card preview"
-    [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
-    [routerLink]="'/art/' + cid"
-  />
-  <div *ngIf="isMusic" [routerLink]="'/art/' + cid" class="icon card preview">
+  <a [routerLink]="'/art/' + cid">
+    <img
+      #image
+      *ngIf="isImage"
+      class="card preview"
+      [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
+    />
+  </a>
+  <a *ngIf="isMusic" [routerLink]="'/art/' + cid" class="icon card preview">
     <i class="light-icon-music"></i>
-  </div>
-  <div *ngIf="isVideo" [routerLink]="'/art/' + cid" class="icon card preview">
+  </a>
+  <a *ngIf="isVideo" [routerLink]="'/art/' + cid" class="icon card preview">
     <i class="light-icon-movie"></i>
-  </div>
+  </a>
   <div [ngClass]="'info ' + orientation">
     <div class="title-author">
       <h3>{{ title }}</h3>

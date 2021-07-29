@@ -1,25 +1,28 @@
 <main class="content card-container">
   <div class="container">
-    <img
-      class="card image"
-      *ngIf="nft.image"
-      [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
-      (click)="openInNewWindow()"
-    />
-    <div
+    <a [href]="'https://gateway.pinata.cloud/ipfs/' + cid" target="_blank">
+      <img
+        class="card image"
+        *ngIf="nft.image"
+        [src]="'https://gateway.pinata.cloud/ipfs/' + cid"
+      />
+    </a>
+    <a
       *ngIf="nft.music && !nft.image && !nft.video"
       class="icon card image"
-      (click)="openInNewWindow()"
+      [href]="'https://gateway.pinata.cloud/ipfs/' + cid"
+      target="_blank"
     >
       <i class="light-icon-music"></i>
-    </div>
-    <div
+    </a>
+    <a
       *ngIf="nft.video && !nft.music && !nft.image"
       class="icon card image"
-      (click)="openInNewWindow()"
+      [href]="'https://gateway.pinata.cloud/ipfs/' + cid"
+      target="_blank"
     >
       <i class="light-icon-movie"></i>
-    </div>
+    </a>
     <div @entering class="info">
       <h3 class="title">{{ metadata?.title }}</h3>
       <p class="author">by {{ metadata?.author }}</p>
@@ -28,7 +31,9 @@
       <div *ngIf="_trade.price.gt(0)" class="price">
         <div class="address">
           price
-          <span>{{ displayPrice }} <i class="fab fa-ethereum"></i></span>
+          <span
+            >{{ displayPrice }} <fa-icon [icon]="faEthereum"></fa-icon
+          ></span>
         </div>
       </div>
       <div class="address">
@@ -48,11 +53,11 @@
     >
       Buy
     </div>
-    <div *ngIf="sellable" (click)="openSellDialog()" class="card card-small">
+    <button *ngIf="sellable" (click)="openSellDialog()" class="card card-small">
       Sell
-    </div>
-    <div *ngIf="cancellable" (click)="cancel()" class="card card-small">
+    </button>
+    <button *ngIf="cancellable" (click)="cancel()" class="card card-small">
       Cancel trade
-    </div>
+    </button>
   </div>
 </main>

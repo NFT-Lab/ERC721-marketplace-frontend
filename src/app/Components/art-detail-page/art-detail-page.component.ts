@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SellDialogComponent } from './sell-dialog/sell-dialog.component';
 import { BuyDialogComponent } from './buy-dialog/buy-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { faCoins } from '@fortawesome/free-solid-svg-icons';
 
 export interface SellData {
   price: number;
@@ -65,6 +66,7 @@ export class ArtDetailPageComponent implements OnInit {
     video: false,
   };
   displayPrice: string = '';
+  faEthereum = faCoins;
 
   constructor(
     private route: ActivatedRoute,
@@ -146,10 +148,6 @@ export class ArtDetailPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.buy(result);
     });
-  }
-
-  openInNewWindow() {
-    window.open('https://ipfs.io/ipfs/' + this.cid, '_blank');
   }
 
   buy(result: BuyData) {

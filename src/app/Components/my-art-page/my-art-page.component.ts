@@ -4,6 +4,7 @@ import { MarketplaceService } from '../../Services/MarketplaceService/marketplac
 import { range } from 'rxjs';
 import { WalletProviderService } from '../../Services/WalletProviderService/wallet-provider.service';
 import { Router } from '@angular/router';
+import { BigNumber, ethers } from 'ethers';
 
 @Component({
   selector: 'app-my-art-page',
@@ -51,6 +52,19 @@ export class MyArtPageComponent implements OnInit {
         this.state = 'You currently have no art pieces on this contract';
       }
     }
+    const market = await this.market.getEthMarketplace();
+    const trades = await market.getTradesOfAddress(account);
+    trades.forEach((tradeId: BigNumber) => {
+      market.getTrade(tradeId).then((trade) => {
+        const status = trade[3];
+        if (status == ethers.utils.formatBytes32String('Open')) {
+          store.getNFTById(trade[1]).then((nft) => {
+            this.arts.push(nft);
+            this.loading = false;
+          });
+        }
+      });
+    });
   }
 
   hasPieces() {
